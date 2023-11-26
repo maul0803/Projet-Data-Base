@@ -1,0 +1,160 @@
+#image{
+  position: relative;
+  bottom: 5px;
+  border: 4px solid #182444;
+  color: #182444;
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+#imagerecette{
+  height: 200px;
+  width: 220px;
+  margin-top: 1%;
+}
+.textelegende{
+  background-color: #182444;
+  color: white;
+  font-size: 1.6em;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 11%;
+  padding-right: 11%;
+  display: inline-block;
+  margin-bottom: 3%;
+  margin-top: 2px;
+
+}
+#middlerecette{
+  align-items: stretch;
+}
+#leftmiddlerecette{
+  background-color: white;
+  border: 4px solid #182444;
+  width: 16%;
+  margin-left: 1%;
+  display: inline-block;
+  margin-bottom: 4%;
+}
+.titlerecette{
+  background-color: #182444;
+  color: white;
+  border: 2px solid black;
+}
+.grasrecette{
+  font-weight: bold;
+  color: #182444;
+}
+.listerecette li::before {
+  content: "\25AA"; 
+  color: #182444;
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em
+}
+#rightmiddlerecette{
+  background-color: white;
+  border: 4px solid black;
+  width: 60%;
+  margin-left: 2%;
+  display: inline-block;
+  position: absolute;
+}
+
+#comeIDPhasesTechniques{
+  resize: none;
+}
+
+#bottomrecette{
+  background-color: white;
+  border: 4px solid black;
+  width: 98.5%;
+  margin-left: 1%;
+  margin-bottom: 3%;
+}
+
+#comeIDConseils{
+  resize: none;
+}
+
+#commentairesRecette{
+  width: 700px;
+}
+
+#commentaireZone::placeholder {
+  text-align:center;
+  line-height: 90px;
+}
+
+#commentaireBouton {
+  float: right;
+  margin-top: 10px;
+}
+
+.filtresCommentaire {
+  margin-top: 25px;
+  float: right;
+  clear: both;
+}
+
+.filtresCommentaire a{
+  color: #1971c2;
+  font-weight: 700;
+  font-size: smaller;
+}
+
+.commentaire{
+  clear: both;
+  border-left: 2px solid rgb(204, 37, 41);
+  padding: 12px 0 0 12px;
+  border-top: 1px solid white;
+}
+
+.commentaireAvatar{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  margin-right: 10px;
+  float: left;
+}
+
+.commentaireNom{
+  font-weight: 700;
+  font-size: 14px;
+  color: #555;
+  border: none;
+  vertical-align: top;
+}
+
+.commentaireData{
+  color: #999;
+  font-size: 12px;
+  margin-left: 48px;
+}
+
+.commentaireHeaderOption{
+  position: relative;
+  float: right;
+  height: 38px;
+  bottom: 25px;
+}
+
+#optionCommentaire {
+  border: none;
+  background-color: #e6e6e6;
+}
+
+#optionCommentaire img{
+  height: 15px;
+  width: 15px;
+}
+
+.textCommentaire p{
+  font-size: 15px;
+  line-height: 1.5;
+  color: black;
+}
+
+.endCommentaires{
+  clear: both;
+}
