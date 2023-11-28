@@ -25,41 +25,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newYear = $_POST['newYear'];
             $newSubject = $_POST['newSubject'];
             $newRack = $_POST['newRack'];
-            $Author_Name = $_POST['Author_Name'];
-            $Publisher_Name = $_POST['Publisher_Name'];
-            
+
+
+            $idAuthor = $_POST['idAuthor'];
+            $idPublisher = $_POST['idPublisher'];
+
             
             $insertQuery1 = "INSERT INTO project.Book (Title, Language_, Number_Of_Pages, Year_Of_Production, Subject, rack_number) 
                             VALUES ('$newTitle', '$newLanguage', $newPages, '$newYear', '$newSubject', $newRack)";
             $insertResult1 = mysqli_query($conn, $insertQuery1);
             $idBook = mysqli_insert_id($conn);
           
-            
-            $selectQueryAuthor = "SELECT project.Author.idAuthor FROM Author WHERE project.Author.Author_Name='$Author_Name'";
-            $selectResultAuthor = mysqli_query($conn, $selectQueryAuthor);
-            $idAuthor = mysqli_fetch_assoc($selectResultAuthor)["idAuthor"];
-
             $insertQueryAuthor = "INSERT INTO project.Write_ (idBook, idAuthor) VALUES ($idBook, $idAuthor)";
             $insertResultAuthor = mysqli_query($conn, $insertQueryAuthor);
-            
-            $selectQueryPublisher = "SELECT project.Publisher.idPublisher FROM Publisher WHERE project.Publisher.Publisher_Name='$Publisher_Name'";
-            $selectResultPublisher = mysqli_query($conn, $selectQueryPublisher);
-            $idPublisher = mysqli_fetch_assoc($selectResultPublisher)["idPublisher"];
 
             $insertQueryPublisher = "INSERT INTO project.Publish (idBook, idPublisher) VALUES ($idBook, $idPublisher)";
             $insertResultPublisher = mysqli_query($conn, $insertQueryPublisher);
 
-            if ($insertResult1 and $selectResultPublisher and $insertResultAuthor){
-              $message = "Book added successfully!";
+            if ($insertResult1 and $insertResultAuthor and $insertResultPublisher){
+              $message = "Publisher added successfully!";
             }
             else{
-              $message = "Error adding the book.";
+              $message = "Error adding the publisher.";
             }
         } elseif ($_POST['action'] === 'delete_book') {
             $idToDelete = $_POST['idBook'];
             $deleteQuery = "DELETE FROM project.Book WHERE idBook = $idToDelete";
             $deleteResult = mysqli_query($conn, $deleteQuery);
-            $message = $deleteResult ? "Book deleted successfully!" : "Error deleting the book.";
+            $message = $deleteResult ? "Publisher deleted successfully!" : "Error deleting the publisher.";
         }
     } else {
       $idBook = $_POST['idBook'];
@@ -69,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $Year_Of_Production = $_POST['Year_Of_Production'];
       $Subject = $_POST['Subject'];
       $rack_number = $_POST['Rack_number'];
-      $Publisher_Name = $_POST['Publisher_Name'];
+      $idPublisher = $_POST['idPublisher'];
       
       $query1 = "UPDATE project.Book 
                  SET Title = '$Title',
@@ -82,22 +75,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       
       $result1 = mysqli_query($conn, $query1);
       
-      $query2 = "SELECT project.Publisher.idPublisher FROM Publisher WHERE project.Publisher.Publisher_Name='$Publisher_Name'";
-      $result2 = mysqli_query($conn, $query2);
-      $idNewPublisher = mysqli_fetch_assoc($result2)["idPublisher"];
-      
-      $query3 = "UPDATE Publish SET idPublisher=$idNewPublisher WHERE idBook=$idBook";
+      $query3 = "UPDATE Publish SET idPublisher=$idPublisher WHERE idBook=$idBook";
       $result3 = mysqli_query($conn, $query3);
       
-      $message = $result1 ? "Modification successful!" : "Error modifying the book.";
+      $message = $result3 ? "Modification successful!" : "Error modifying the publisher.";
     }
 }
 
-$query = "SELECT project.Book.idBook,Title, Language_, Number_Of_Pages, Year_Of_Production, Subject, rack_number, project.Publisher.Publisher_Name
+$query = "SELECT project.Book.idBook,Title, Language_, Number_Of_Pages, Year_Of_Production, Subject, rack_number, project.Publisher.Publisher_Name,Publisher.idPublisher,idAuthor
           FROM project.Book JOIN Publish
           ON project.Book.idBook = project.Publish.idBook
           JOIN Publisher
-          ON project.Publisher.idPublisher = project.Publish.idPublisher;";
+          ON project.Publisher.idPublisher = project.Publish.idPublisher
+          JOIN Write_
+          ON project.Book.idBook = project.Write_.idBook
+          ORDER BY idBook ASC;";
 $result = mysqli_query($conn, $query);
 
 $authorQuery = "SELECT idAuthor, Author_Name FROM project.Author";
@@ -123,11 +115,12 @@ echo "
       <td>" . 'Year_Of_Production' . "</td>
       <td>" . 'Subject' . "</td>
       <td>" . 'Rack_number' . "</td>
-      <td>" . 'Author' . "</td>
+      <td>" . 'Publisher' . "</td>
     </tr>
 ";
 
 while ($rowData = mysqli_fetch_assoc($result)) {
+    $idAuthor = $rowData['idAuthor'];
     $idBook = $rowData['idBook'];
     $Title = $rowData['Title'];
     $Language_ = $rowData['Language_'];
@@ -136,26 +129,28 @@ while ($rowData = mysqli_fetch_assoc($result)) {
     $Subject = $rowData['Subject'];
     $rack_number = $rowData['rack_number'];
     $Publisher_Name = $rowData['Publisher_Name'];
+    $idPublisher = $rowData['idPublisher'];
+
 
     echo "
         <tr>
           <td>
             <form method='POST' name='admin_book' >
-              <input type='text' name='idBook'  value='$idBook' readonly>
+              <input type='text' name='idBook'  value='$idBook' readonly size='5'>
               <input type='text' name='Title' value='$Title'>
               <input type='text' name='Language' value='$Language_'>
               <input type='number' name='Number_Of_Pages' value='$Number_Of_Pages'>
               <input type='date' name='Year_Of_Production' value='$Year_Of_Production'>
               <input type='text' name='Subject' value='$Subject'>
               <input type='number' name='Rack_number' value='$rack_number'>
-              <select name='Publisher_Name'>
-                <option value='$Publisher_Name'>$Publisher_Name</option>";
+              <select name='idPublisher'>
+                <option value='$idPublisher'>$Publisher_Name</option>";
 
     foreach ($publishers as $publisher) {
-        $publisherId = $publisher['idAuthor'];
+        $publisherId = $publisher['idPublisher'];
         $publisherName = $publisher['Publisher_Name'];
-        if ($publisherName != $Publisher_Name) {
-            echo "<option value='$publisherName'>$publisherName</option>";
+        if ($publisherId != $idPublisher) {
+            echo "<option value='$publisherId'>$publisherName</option>";
         }
     }
 
@@ -177,28 +172,28 @@ echo "
         <input type='date' name='newYear' placeholder='Year Of Production'>
         <input type='text' name='newSubject' placeholder='Subject'>
         <input type='number' name='newRack' placeholder='Rack Number'>
-        <select name='Author_Name'>";
+        <select name='idAuthor'>";
 
         foreach ($authors as $author) {
         $authorId = $author['idAuthor'];
         $authorName = $author['Author_Name'];
-        echo "<option value='$authorName'>$authorName</option>";
+        echo "<option value='$authorId'>$authorName</option>";
         }
 
         echo "
       </select>
-      <select name='Publisher_Name'>";
+      <select name='idPublisher'>";
 
       foreach ($publishers as $publisher) {
       $publisherId = $publisher['idPublisher'];
       $publisherName = $publisher['Publisher_Name'];
-      echo "<option value='$publisherName'>$publisherName</option>";
+      echo "<option value='$publisherId'>$publisherName</option>";
       }
 
       echo "
     </select>
         <input type='hidden' name='action' value='add_book'>
-        <input type='submit' value='Add Book'>
+        <input type='submit' value='Add Publisher'>
     </form>
 ";
 

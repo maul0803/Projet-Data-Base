@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $query = "SELECT  idCard,RessourceType,Activation_Date,is_active,email,Card.idUser
           FROM Card
           JOIN Users
-          ON Card.idUser=Users.idUser;";
+          ON Card.idUser=Users.idUser ORDER BY idUser ASC;";
 
 $result = mysqli_query($conn, $query);
 
@@ -131,7 +131,7 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
         <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idCard'  value='$idCard' readonly>
+            <input type='text' name='idCard'  value='$idCard' readonly size='5'>
 
             <select name='RessourceType'>
             <option value='$RessourceType'>$RessourceType</option>
@@ -147,7 +147,8 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
             <input type='date' name='Activation_Date' value='$Activation_Date' readonly>
             <input type='checkbox' name='is_active' value='$is_active' " . ($is_active ? 'checked' : '') . ">
-            <input type='text' name='idUser' value='$email' readonly>
+            <input type='text' name='idUser' value='$idUser' readonly size='5'>
+            <input type='text' name='email' value='$email' readonly>
             <input type='submit' value='Modify'>
             <button type='submit' name='action' value='delete_card'>Delete</button>
             <button type='submit' name='action' value='desactivate_activate_card'>Activate/Desactivate Card</button>

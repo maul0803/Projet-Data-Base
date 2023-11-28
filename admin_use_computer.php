@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 
 $query = "SELECT idUseComputer,DateBorrowStart,DateBorrowEnd,idCard,idComputer 
-          FROM UseComputer;";
+          FROM UseComputer ORDER BY idUseComputer ASC;";
 
 $result = mysqli_query($conn, $query);
 
@@ -137,9 +137,9 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
         <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idUseComputer'  value='$idUseComputer' readonly>
-            <input type='text' name='idComputer'  value='$idComputer' readonly>
-            <input type='number' name='idCard' value='$idCard' readonly>
+            <input type='text' name='idUseComputer'  value='$idUseComputer' readonly size='5'>
+            <input type='text' name='idComputer'  value='$idComputer' readonly size='5'>
+            <input type='number' name='idCard' value='$idCard' readonly size='5'>
             <input type='date' name='DateBorrowStart' value='$DateBorrowStart'>
             <input type='date' name='DateBorrowEnd' value='$DateBorrowEnd'>
             <input type='submit' value='Modify'>

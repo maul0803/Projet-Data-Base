@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Display the table
-$query = "SELECT idAuthor, Author_Name FROM project.Author";
+$query = "SELECT idAuthor, Author_Name FROM project.Author ORDER BY idAuthor ASC;";
 $result = mysqli_query($conn, $query);
 echo "
     <tr>
@@ -78,7 +78,7 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
         <td>
           <form method='POST' name='admin_author' >
-            <input type='text' name='idAuthor'  value='$idAuthor' readonly>
+            <input type='text' name='idAuthor'  value='$idAuthor' readonly size='5'>
             <input type='text' name='Author_Name' value='$Author_Name'>
             <input type='submit' value='Modify'>
             <button type='submit' name='action' value='delete'>Delete</button>

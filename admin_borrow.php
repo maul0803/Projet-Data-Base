@@ -100,7 +100,8 @@ $query = "SELECT idBorrow,Title,idCard,Borrow.idBookInLibrary,DateBorrowStart,Da
           JOIN project.BookInLibrary
           ON Borrow.idBookInLibrary=BookInLibrary.idBookInLibrary
           JOIN Book
-          ON BookInLibrary.idBook=Book.idBook";
+          ON BookInLibrary.idBook=Book.idBook
+          ORDER BY idBorrow ASC;";
 
 $result = mysqli_query($conn, $query);
 
@@ -117,7 +118,8 @@ while ($titleData = mysqli_fetch_assoc($titleResult)) {
 
 $cardQuery = "SELECT idCard
               FROM Card
-              WHERE RessourceType='Book';";
+              WHERE RessourceType='Book'
+              AND is_active=True;";
 $cardResult = mysqli_query($conn, $cardQuery);
 $cards = [];
 while ($cardData = mysqli_fetch_assoc($cardResult)) {
@@ -148,10 +150,10 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
         <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idBorrow'  value='$idBorrow' readonly>
-            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly>
+            <input type='text' name='idBorrow'  value='$idBorrow' readonly size='5'>
+            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5'>
             <input type='text' name='Title' value='$Title' readonly>
-            <input type='number' name='idCard' value='$idCard' readonly>
+            <input type='text' name='idCard' value='$idCard' readonly size='5'>
             <input type='date' name='DateBorrowStart' value='$DateBorrowStart'>
             <input type='date' name='DateBorrowEnd' value='$DateBorrowEnd'>
             <input type='submit' value='Modify'>

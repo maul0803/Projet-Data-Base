@@ -95,7 +95,7 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
         <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly>
+            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5'>
             <input type='text' name='Title' value='$Title' readonly>
             <input type='number' name='price' value='$price'>
             <input type='date' name='date_of_purchase' value='$date_of_purchase'>

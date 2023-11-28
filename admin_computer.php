@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $query = "SELECT idComputer,availability 
-          FROM Computer;";
+          FROM Computer ORDER BY idComputer ASC;";
 
 $result = mysqli_query($conn, $query);
 
@@ -74,7 +74,7 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
         <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idComputer'  value='$idComputer' readonly size='15'>
+            <input type='text' name='idComputer'  value='$idComputer' readonly size='5'>
             <input type='checkbox' name='availability' value='$availability' " . ($availability ? 'checked' : '') . ">
             <input type='submit' value='Modify'>
             <button type='submit' name='action' value='delete_room'>Delete</button>

@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $query = "SELECT idUser,profil,first_name,last_name,email,postal_address,phone_number,username,password,is_registered 
-          FROM Users;";
+          FROM Users ORDER BY idUser ASC;";
 
 $result = mysqli_query($conn, $query);
 
@@ -122,7 +122,7 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
         <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idUser'  value='$idUser' readonly size='15'>
+            <input type='text' name='idUser'  value='$idUser' readonly size='5'>
 
             <select name='profil'>
             <option value='$profil'>$profil</option>
