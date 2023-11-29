@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           if ($insertResult) {
               $message = "Card added successfully!";
           } else {
-              $message = "Error adding the card.";
+              $message = "Error adding the card." . mysqli_error($conn);
           }
         } elseif ($_POST['action'] === 'delete_card') {
             $idToDelete = $_POST['idCard'];
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                               WHERE idCard=$idCard";
       
               $resultUpdate = mysqli_query($conn, $queryUpdate);
-              $message = $resultUpdate ? "Card deactivated successfully!" : "Error. $is_active $idUser";
+              $message = $resultUpdate ? "Card deactivated successfully!" : "Error.";
           } else {
               $queryUpdate = "UPDATE project.Card
                               SET RessourceType='$RessourceType',
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                               WHERE idCard=$idCard";
       
               $resultUpdate = mysqli_query($conn, $queryUpdate);
-              $message = $resultUpdate ? "Card activated successfully!" : "Error. $is_active $idUser";
+              $message = $resultUpdate ? "Card activated successfully!" : "Error.";
           }
       }
       
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           WHERE idCard=$idCard";
 
           $resultUpdate = mysqli_query($conn, $queryUpdate);
-          $message = $resultUpdate ? "Card updated successfully!" : "Error. $is_active $idUser";
+          $message = $resultUpdate ? "Card updated successfully!" : "Error.";
       }
     
     
