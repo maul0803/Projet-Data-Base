@@ -94,7 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           }
       
           $resultUpdate = mysqli_query($conn, $queryUpdate);
-          $message = $resultUpdate ? "Modification successful!" : "Error modifying the borrow.";
+          $error_message = mysqli_error($conn);
+          $message = $resultUpdate ? "Modification successful!" : "Error modifying the borrow. Error: $error_message";
       }
     
     
@@ -151,19 +152,21 @@ while ($rowData = mysqli_fetch_assoc($result)) {
     $DateBorrowEnd = $rowData['DateBorrowEnd'];
     $idBookInLibrary = $rowData['idBookInLibrary'];
 
-    if (is_null($DateBorrowEnd)) {
+    if ($DateBorrowEnd == '0000-00-00') {
       $DateEnd = time();
       $DateStart = strtotime($DateBorrowStart);
       $dateDifference = $DateEnd - $DateStart;
       $daysDifference = floor($dateDifference / (60 * 60 * 24));
       $color = ($daysDifference <= 15) ? 'green' : 'red';
-    } else {
-        $DateEnd = strtotime($DateBorrowEnd);
-        $DateStart = strtotime($DateBorrowStart);
-        $dateDifference = $DateEnd - $DateStart;
-        $daysDifference = floor($dateDifference / (60 * 60 * 24));
-        $color = ($daysDifference <= 15) ? 'green' : 'red';
-    }
+  } else {
+      $DateEnd = strtotime($DateBorrowEnd);
+      $DateStart = strtotime($DateBorrowStart);
+      $dateDifference = $DateEnd - $DateStart;
+      $daysDifference = floor($dateDifference / (60 * 60 * 24));
+      $color = ($daysDifference <= 15) ? 'green' : 'red';
+  }
+  
+
 
 
     echo "

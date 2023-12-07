@@ -76,7 +76,7 @@ while ($rowData = mysqli_fetch_assoc($result)) {
     $DateBorrowEnd = $rowData['DateBorrowEnd'];
     $idBookInLibrary = $rowData['idBookInLibrary'];
 
-    if (is_null($DateBorrowEnd)) {
+    if ($DateBorrowEnd == '0000-00-00') {
       $DateEnd = time();
       $DateStart = strtotime($DateBorrowStart);
       $dateDifference = $DateEnd - $DateStart;
