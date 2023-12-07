@@ -95,10 +95,10 @@ if (isset($_POST['email'])){
 ?>
 <main>
   <form class="come-boite" method="post" name="login">
-    <h1 class="come-boite-title">Se connecter</h1>
+    <h1 class="come-boite-title">Login</h1>
       <input type="text" class="come-boite-input" name="email" placeholder="Email" required />
       <input type="password" class="come-boite-input" name="password" placeholder="Mot de passe">
-      <input type="submit" value="Connexion " name="submit" class="come-boite-button">
+      <input type="submit" value="Connection " name="submit" class="come-boite-button">
     <p class="come-boite-register">New here?<a href=" register.php">Register</a></p>
     <?php if (! empty($message)) { ?>
         <p class="come-errorMessage"><?php echo $message; ?></p>
