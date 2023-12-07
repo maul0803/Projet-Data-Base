@@ -1,113 +1,97 @@
--- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 09 jan. 2020 à 12:07
--- Version du serveur :  5.7.19
--- Version de PHP :  7.1.9
-
-
---
--- Base de données :  `Project`
---
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
--- Création de la base de données
+-- Creation of the database
 DROP DATABASE IF EXISTS project;
 CREATE DATABASE project;
 USE project;
 
--- Création de la table Book
+-- Creation of the table book
 CREATE TABLE Book (
     idBook INT PRIMARY KEY AUTO_INCREMENT,
-    Title VARCHAR(50),
-    Language_ VARCHAR(50),
-    Number_Of_Pages INT,
-    Year_Of_Production DATE,
-    Subject VARCHAR(50),
-    rack_number INT
+    Title VARCHAR(50) NOT NULL,
+    Language_ VARCHAR(50) NOT NULL,
+    Number_Of_Pages INT NOT NULL,
+    Year_Of_Production DATE NOT NULL,
+    Subject VARCHAR(50) NOT NULL,
+    rack_number INT NOT NULL
 );
 
--- Création de la table Author
+-- Creation of the table Author
 CREATE TABLE Author (
     idAuthor INT PRIMARY KEY AUTO_INCREMENT,
-    Author_Name VARCHAR(50)
+    Author_Name VARCHAR(50) NOT NULL
 );
 
--- Création de la table Publisher
+-- Creation of the table publisher
 CREATE TABLE Publisher (
     idPublisher INT PRIMARY KEY AUTO_INCREMENT,
-    Publisher_Name VARCHAR(50)
+    Publisher_Name VARCHAR(50) NOT NULL
 );
 
--- Création de la table Users
+-- Creation of the table Users
 CREATE TABLE Users (
     idUser INT PRIMARY KEY AUTO_INCREMENT,
     profil VARCHAR(50) NOT NULL CHECK (profil IN ('Administrator', 'Library Agent', 'Student')),
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    email VARCHAR(50) UNIQUE,
-    postal_address VARCHAR(50),
-    phone_number VARCHAR(50),
-    username VARCHAR(50),
-    password VARCHAR(50),
-    is_registered BOOLEAN
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    postal_address VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    is_registered BOOLEAN NOT NULL
 );
 
--- Création de la table BookInLibrary
+-- Creation of the table BookInLibrary
 CREATE TABLE BookInLibrary (
     idBookInLibrary INT PRIMARY KEY AUTO_INCREMENT,
-    price INT,
-    date_of_purchase DATE,
-    availability BOOLEAN,
-    idBook INT,
+    price INT NOT NULL,
+    date_of_purchase DATE NOT NULL,
+    availability BOOLEAN NOT NULL,
+    idBook INT NOT NULL,
     CONSTRAINT fk_Book
         FOREIGN KEY (idBook) 
         REFERENCES Book(idBook) ON DELETE CASCADE
 );
 
--- Création de la table Card
+-- Creation of the table Card
 CREATE TABLE Card (
     idCard INT PRIMARY KEY AUTO_INCREMENT,
-    RessourceType VARCHAR(50) CHECK (RessourceType IN ('Book', 'Computer', 'MeetingRoom')),
-    Activation_Date DATE,
-    is_active BOOLEAN,
-    idUser INT,
+    RessourceType VARCHAR(50) CHECK (RessourceType IN ('Book', 'Computer', 'MeetingRoom')) NOT NULL,
+    Activation_Date DATE NOT NULL,
+    is_active BOOLEAN NOT NULL,
+    idUser INT NOT NULL,
     CONSTRAINT fk_User
         FOREIGN KEY (idUser) 
         REFERENCES Users(idUser) ON DELETE CASCADE
 );
 
--- Création de la table Computer
+-- Creation of the table Computer
 CREATE TABLE Computer (
     idComputer INT PRIMARY KEY AUTO_INCREMENT,
-    availability BOOLEAN
+    availability BOOLEAN NOT NULL
 );
 
--- Création de la table MeetingRoom
+-- Creation of the table MeetingRoom
 CREATE TABLE MeetingRoom (
     idMeetingRoom INT PRIMARY KEY AUTO_INCREMENT,
-    availability BOOLEAN
+    availability BOOLEAN NOT NULL
 );
 
--- Création de la table Borrow
+-- Creation of the table Borrow
 CREATE TABLE Borrow (
     idBorrow INT PRIMARY KEY AUTO_INCREMENT,
-    DateBorrowStart DATE,
-    DateBorrowEnd DATE,
-    idCard INT,
-    idBookInLibrary INT,
+    DateBorrowStart DATE NOT NULL,
+    DateBorrowEnd DATE NOT NULL,
+    idCard INT NOT NULL,
+    idBookInLibrary INT NOT NULL,
     CONSTRAINT fk_Card
         FOREIGN KEY (idCard) 
         REFERENCES Card(idCard) ON DELETE CASCADE,
@@ -116,13 +100,13 @@ CREATE TABLE Borrow (
         REFERENCES BookInLibrary(idBookInLibrary) ON DELETE CASCADE
 );
 
--- Création de la table UseRoom
+-- Creation of the table UseRoom
 CREATE TABLE UseRoom (
     idUseRoom INT PRIMARY KEY AUTO_INCREMENT,
-    DateBorrowStart DATE,
-    DateBorrowEnd DATE,
-    idCard INT,
-    idMeetingRoom INT,
+    DateBorrowStart DATE NOT NULL,
+    DateBorrowEnd DATE NOT NULL,
+    idCard INT NOT NULL,
+    idMeetingRoom INT NOT NULL,
     CONSTRAINT fk_Card_UseRoom
         FOREIGN KEY (idCard) 
         REFERENCES Card(idCard) ON DELETE CASCADE,
@@ -131,13 +115,13 @@ CREATE TABLE UseRoom (
         REFERENCES MeetingRoom(idMeetingRoom) ON DELETE CASCADE
 );
 
--- Création de la table UseComputer
+-- Creation of the table UseComputer
 CREATE TABLE UseComputer (
     idUseComputer INT PRIMARY KEY AUTO_INCREMENT,
-    DateBorrowStart DATE,
-    DateBorrowEnd DATE,
-    idCard INT,
-    idComputer INT,
+    DateBorrowStart DATE NOT NULL,
+    DateBorrowEnd DATE NOT NULL,
+    idCard INT NOT NULL,
+    idComputer INT NOT NULL,
     CONSTRAINT fk_Card_UseComputer
         FOREIGN KEY (idCard) 
         REFERENCES Card(idCard) ON DELETE CASCADE,
@@ -146,10 +130,10 @@ CREATE TABLE UseComputer (
         REFERENCES Computer(idComputer) ON DELETE CASCADE
 );
 
--- Création de la table Write
+-- Creation of the table Write
 CREATE TABLE Write_ (
-    idBook INT,
-    idAuthor INT,
+    idBook INT NOT NULL,
+    idAuthor INT NOT NULL,
     PRIMARY KEY (idBook, idAuthor),
     CONSTRAINT fk_Book_Write
         FOREIGN KEY (idBook) 
@@ -159,10 +143,10 @@ CREATE TABLE Write_ (
         REFERENCES Author(idAuthor) ON DELETE CASCADE
 );
 
--- Création de la table Publish
+-- Creation of the table Publish
 CREATE TABLE Publish (
-    idBook INT,
-    idPublisher INT,
+    idBook INT NOT NULL,
+    idPublisher INT NOT NULL,
     PRIMARY KEY (idBook, idPublisher),
     CONSTRAINT fk_Book_Publish
         FOREIGN KEY (idBook) 
@@ -174,7 +158,7 @@ CREATE TABLE Publish (
 
 
 
-/*Trigger delete Author->Delete Books*/
+-- Trigger delete Author->Delete Books
 DELIMITER //
 CREATE TRIGGER OnDeleteAuthor AFTER DELETE ON Author
 FOR EACH ROW
@@ -183,7 +167,7 @@ BEGIN
 END;
 //
 DELIMITER ;
-/*Trigger delete Publisher->Delete Books*/
+-- Trigger delete Publisher->Delete Books
 DELIMITER //
 CREATE TRIGGER OnDeletePublisher AFTER DELETE ON Publisher
 FOR EACH ROW
@@ -192,16 +176,6 @@ BEGIN
 END;
 //
 DELIMITER ;
-
-
-
-
-
-
-
-
-
-
 
 -- Trigger to check if the user can have another card or not
 DELIMITER //
@@ -218,15 +192,7 @@ END;
 //
 DELIMITER ;
 
-
-
-
-
-
-
-
-
--- Trigger pour vérifier si la carte peut être utilisée pour emprunter des livres
+-- Trigger to check if the card can be used to borrow books
 DELIMITER //
 CREATE TRIGGER CheckCardBook BEFORE INSERT ON Borrow
 FOR EACH ROW 
@@ -247,7 +213,7 @@ END;
 //
 DELIMITER ;
 
--- Trigger pour vérifier si la carte peut être utilisée pour utiliser un ordinateur
+-- Trigger to check if the card can be used to borrow a computer
 DELIMITER //
 CREATE TRIGGER CheckCardComputer BEFORE INSERT ON UseComputer
 FOR EACH ROW 
@@ -268,7 +234,7 @@ END;
 //
 DELIMITER ;
 
--- Trigger pour vérifier si la carte peut être utilisée pour utiliser une salle
+-- Trigger to check if the card can be used to borrow a room
 DELIMITER //
 CREATE TRIGGER CheckCardRoom BEFORE INSERT ON UseRoom
 FOR EACH ROW 
@@ -289,7 +255,7 @@ END;
 //
 DELIMITER ;
 
-/*Trigger to test is the user can borrow a book or not*/
+-- Trigger to test is the user can borrow a book or not
 DELIMITER //
 CREATE TRIGGER CanBorrowBook BEFORE INSERT ON Borrow
 FOR EACH ROW
@@ -316,7 +282,7 @@ END;
 DELIMITER ;
 
 
-/*Trigger to test is the user can borrow a room or not*/
+-- Trigger to test is the user can borrow a room or not
 DELIMITER //
 CREATE TRIGGER CanUseRoom BEFORE INSERT ON UseRoom
 FOR EACH ROW
@@ -332,7 +298,7 @@ END;
 //
 DELIMITER ;
 
-/*Trigger to test is the user can borrow a computer or not*/
+-- Trigger to test is the user can borrow a computer or not
 DELIMITER //
 CREATE TRIGGER CanUseComputer BEFORE INSERT ON UseComputer
 FOR EACH ROW
@@ -348,7 +314,7 @@ END;
 //
 DELIMITER ;
 
-/*Trigger to change the availability after the insert of a DateBorrowStart*/
+-- Trigger to change the availability after the insert of a DateBorrowStart
 DELIMITER //
 CREATE TRIGGER UpdateAvailabilityFalseBook AFTER INSERT ON Borrow
 FOR EACH ROW 
@@ -357,7 +323,7 @@ BEGIN
 END;
 //
 DELIMITER ;
-/*Trigger to change the availability after the insert of a DateBorrowEnd*/
+-- Trigger to change the availability after the insert of a DateBorrowEnd
 DELIMITER //
 CREATE TRIGGER UpdateAvailabilityTrueBook AFTER UPDATE ON Borrow
 FOR EACH ROW 
@@ -371,15 +337,23 @@ END;
 //
 DELIMITER ;
 
+-- Trigger to check if the DateBorrowEnd is after DateBorrowStart
+DELIMITER //
+CREATE TRIGGER CheckDateBook BEFORE UPDATE ON Borrow
+FOR EACH ROW 
+BEGIN
+	IF NEW.DateBorrowEnd < NEW.DateBorrowStart THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The book cannot be borrowed for a negative duration';
+    END IF;
+END;
+//
+DELIMITER ;
 
 
 
 
 
-
-
-
-/*Trigger to change the availability after the insert of a DateBorrowStart (USE ROOM)*/
+-- Trigger to change the availability after the insert of a DateBorrowStart (USE ROOM)
 DELIMITER //
 CREATE TRIGGER UpdateAvailabilityFalseRoom AFTER INSERT ON UseRoom
 FOR EACH ROW 
@@ -388,7 +362,7 @@ BEGIN
 END;
 //
 DELIMITER ;
-/*Trigger to change the availability after the insert of a DateBorrowEnd (USE ROOM)*/
+-- Trigger to change the availability after the insert of a DateBorrowEnd (USE ROOM)
 DELIMITER //
 CREATE TRIGGER UpdateAvailabilityTrueRoom AFTER UPDATE ON UseRoom
 FOR EACH ROW 
@@ -402,7 +376,19 @@ END;
 //
 DELIMITER ;
 
-/*Trigger to change the availability after the insert of a DateBorrowStart (USE Computer)*/
+-- Trigger to check if the DateBorrowEnd is after DateBorrowStart (USE ROOM)
+DELIMITER //
+CREATE TRIGGER CheckDateRoom BEFORE UPDATE ON UseRoom
+FOR EACH ROW 
+BEGIN
+	IF NEW.DateBorrowEnd < NEW.DateBorrowStart THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The room cannot be borrowed for a negative duration';
+    END IF;
+END;
+//
+DELIMITER ;
+
+-- Trigger to change the availability after the insert of a DateBorrowStart (USE Computer)
 DELIMITER //
 CREATE TRIGGER UpdateAvailabilityFalseComputer AFTER INSERT ON UseComputer
 FOR EACH ROW 
@@ -411,7 +397,7 @@ BEGIN
 END;
 //
 DELIMITER ;
-/*Trigger to change the availability after the insert of a DateBorrowEnd (USE Computer)*/
+-- Trigger to change the availability after the insert of a DateBorrowEnd (USE Computer)
 DELIMITER //
 CREATE TRIGGER UpdateAvailabilityTrueComputer AFTER UPDATE ON UseComputer
 FOR EACH ROW 
@@ -424,51 +410,92 @@ BEGIN
 END;
 //
 DELIMITER ;
+-- Trigger to check if the DateBorrowEnd is after DateBorrowStart (USE Computer)
+DELIMITER //
+CREATE TRIGGER CheckDateComputer BEFORE UPDATE ON UseComputer
+FOR EACH ROW 
+BEGIN
+	IF NEW.DateBorrowEnd < NEW.DateBorrowStart THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The room cannot be borrowed for a negative duration';
+    END IF;
+END;
+//
+DELIMITER ;
 
-
-
--- Insertion de données supplémentaires dans la table Book
+-- Data Insertion
 INSERT INTO Book (Title, Language_, Number_Of_Pages, Year_Of_Production, Subject, rack_number) 
 VALUES 
-('The Great Gatsby', 'English', 180, '1925-04-10', 'Fiction', 104),
-('Moby-Dick', 'English', 635, '1851-10-18', 'Adventure', 105),
-('Pride and Prejudice', 'English', 279, '1813-01-28', 'Romance', 106),
-('One Hundred Years of Solitude', 'Spanish', 417, '1967-05-30', 'Magic Realism', 107),
-('Brave New World', 'English', 311, '1932-06-11', 'Dystopian', 108),
-('The Hobbit', 'English', 310, '1937-09-21', 'Fantasy', 109),
-('The Odyssey', 'Greek', 442, '1937-09-21', 'Epic', 110),
-('The Iliad', 'Greek', 683, '1937-09-21', 'Epic', 111),
-('Crime and Punishment', 'Russian', 671, '1866-11-11', 'Psychological Fiction', 112),
-('The Lord of the Rings', 'English', 1008, '1954-07-29', 'Fantasy', 113);
+('1984', 'English', 328, '1949-06-08', 'Dystopian', 114),
+('To Kill a Mockingbird', 'English', 324, '1960-07-11', 'Fiction', 115),
+('The Catcher in the Rye', 'English', 277, '1951-07-16', 'Coming-of-Age', 116),
+('The Brothers Karamazov', 'Russian', 824, '1880-11-06', 'Philosophical Fiction', 117),
+('The Picture of Dorian Gray', 'English', 254, '1890-07-20', 'Gothic Fiction', 118),
+('The Alchemist', 'Portuguese', 197, '1988-01-01', 'Philosophical Fiction', 119),
+('The Book Thief', 'English', 552, '2005-03-14', 'Historical Fiction', 120),
+('The Road', 'English', 287, '2006-09-26', 'Post-Apocalyptic', 121),
+('The Kite Runner', 'English', 371, '2003-05-29', 'Historical Fiction', 122),
+('The Art of War', 'Chinese', 100, '5th Century BCE', 'Military Strategy', 123),
+('The Silent Patient', 'English', 336, '2019-02-05', 'Psychological Thriller', 124),
+('The Girl on the Train', 'English', 323, '2015-01-13', 'Mystery', 125),
+('Sapiens: A Brief History of Humankind', 'English', 443, '2011-02-10', 'History', 126),
+('Educated', 'English', 334, '2018-02-20', 'Memoir', 127),
+('The Da Vinci Code', 'English', 454, '2003-03-18', 'Mystery', 128),
+('The Hunger Games', 'English', 374, '2008-09-14', 'Dystopian', 129),
+('The Shining', 'English', 447, '1977-01-28', 'Horror', 130),
+('The Girl with the Dragon Tattoo', 'Swedish', 590, '2005-08-23', 'Mystery', 131),
+('The Martian', 'English', 369, '2011-09-27', 'Science Fiction', 132),
+('The Fault in Our Stars', 'English', 313, '2012-01-10', 'Young Adult', 133);
 
--- Insertion de données supplémentaires dans la table Author
+-- Insertion in the table table Author
 INSERT INTO Author (Author_Name) 
 VALUES 
-('F. Scott Fitzgerald'),
-('Herman Melville'),
-('Jane Austen'),
-('Gabriel Garcia Marquez'),
-('Aldous Huxley'),
-('J.R.R. Tolkien'),
-('Homer'),
+('George Orwell'),
+('Harper Lee'),
+('J.D. Salinger'),
 ('Fyodor Dostoevsky'),
-('J.R.R. Tolkien');
+('Oscar Wilde'),
+('Paulo Coelho'),
+('Markus Zusak'),
+('Cormac McCarthy'),
+('Khaled Hosseini'),
+('Sun Tzu'),
+('Alex Michaelides'),
+('Paula Hawkins'),
+('Yuval Noah Harari'),
+('Tara Westover'),
+('Dan Brown'),
+('Suzanne Collins'),
+('Stephen King'),
+('Stieg Larsson'),
+('Andy Weir'),
+('John Green');
 
--- Insertion de données supplémentaires dans la table Publisher
+-- Insertion in that table Publisher
 INSERT INTO Publisher (Publisher_Name) 
 VALUES 
-('Charles Scribner s Sons'),
-('Richard Bentley'),
-('Thomas Egerton'),
-('Harper & Row'),
-('Chatto & Windus'),
-('Allen & Unwin'),
-('Truc'),
-('Bidule'),
+('Secker & Warburg'),
+('J.B. Lippincott & Co.'),
+('Little, Brown and Company'),
 ('The Russian Messenger'),
-('Allen & Unwin');
+('Ward, Lock & Co.'),
+('HarperCollins'),
+('Random House'),
+('Knopf'),
+('Riverhead Books'),
+('Ancient Chinese Wisdom Publishing'),
+('Celadon Books'),
+('Riverhead Books'),
+('HarperCollins'),
+('Random House'),
+('Doubleday'),
+('Scholastic Press'),
+('Doubleday'),
+('Norstedts förlag'),
+('Crown Publishing'),
+('Dutton Books');
 
--- Insertion de données supplémentaires dans la table Users
+
+-- Insertion in the table Users
 INSERT INTO Users (profil, first_name, last_name, email, postal_address, phone_number, username, password, is_registered) 
 VALUES 
 ('Administrator', 'admin_first', 'admin_last', 'admin_mail', 'admin', '00000000', 'admin', 'admin', true),
@@ -480,70 +507,131 @@ VALUES
 ('Student', 'David', 'Wilson', 'david.w@example.com', '456 Student St', '789456123', 'davidw', 'studentpass', true),
 ('Student', 'Sophie', 'Brown', 'sophie.b@example.com', '789 Student St', '123456789', 'sophieb', 'studentpass', true);
 
--- Insertion de données supplémentaires dans la table BookInLibrary
+-- Insertion in the table table BookInLibrary
+-- Insertion of 30 additional books in the library
 INSERT INTO BookInLibrary (price, date_of_purchase, availability, idBook) 
 VALUES 
-(15, '2022-04-01', true, 1),
-(15, '2022-04-01', true, 1),
-(15, '2022-04-01', true, 1),
-(15, '2022-04-01', true, 4),
-(18, '2022-04-05', true, 5),
-(22, '2022-04-10', true, 6),
-(25, '2022-04-15', true, 7),
-(30, '2022-04-20', true, 8),
-(35, '2022-04-25', true, 9),
-(40, '2022-04-30', true, 10);
+(15, '2023-04-01', true, 1),
+(18, '2023-04-05', true, 2),
+(22, '2023-04-10', true, 3),
+(15, '2023-04-01', true, 4),
+(18, '2023-04-05', true, 5),
+(22, '2023-04-10', true, 6),
+(25, '2023-04-15', true, 7),
+(30, '2023-04-20', true, 8),
+(35, '2023-04-25', true, 9),
+(40, '2023-04-30', true, 10),
+(20, '2023-05-05', true, 11),
+(25, '2023-05-10', true, 12),
+(30, '2023-05-15', true, 13),
+(18, '2023-05-20', true, 14),
+(20, '2023-05-25', true, 15),
+(25, '2023-06-01', true, 16),
+(30, '2023-06-05', true, 17),
+(35, '2023-06-10', true, 18),
+(40, '2023-06-15', true, 19),
+(45, '2023-06-20', true, 20),
+(15, '2023-06-25', true, 1),
+(18, '2023-07-01', true, 1),
+(22, '2023-07-05', true, 1),
+(15, '2023-07-10', true, 2),
+(18, '2023-07-15', true, 2),
+(22, '2023-07-20', true, 6),
+(25, '2023-07-25', true, 7),
+(30, '2023-07-30', true, 8),
+(35, '2023-08-01', true, 9),
+(40, '2023-08-05', true, 10);
 
--- Insertion de données supplémentaires dans la table Card
+
+-- Insertion in the table Card
 INSERT INTO Card (RessourceType, Activation_Date, is_active, idUser) 
 VALUES 
-('Book', '2022-04-01', True, 1),
-('Computer', '2022-04-05', True, 1),
-('MeetingRoom', '2022-04-10', True, 1),
-('Book', '2022-04-15', True, 2),
-('Computer', '2022-04-20', True, 2),
-('MeetingRoom', '2022-04-25', True, 2),
-('Book', '2022-04-30', True, 3),
-('Computer', '2022-05-05', True, 3),
-('MeetingRoom', '2022-05-10', True, 3),
-('Book', '2022-05-15', True, 4);
+('Book', '2023-04-01', True, 1),
+('Computer', '2023-04-05', True, 1),
+('MeetingRoom', '2023-04-10', True, 1),
+('Book', '2023-04-15', True, 2),
+('Computer', '2023-04-20', True, 2),
+('MeetingRoom', '2023-04-25', True, 2),
+('Book', '2023-04-30', True, 3),
+('Computer', '2023-05-05', True, 3),
+('MeetingRoom', '2023-05-10', True, 3),
+('Book', '2023-05-15', True, 4),
+('MeetingRoom', '2023-06-01', True, 4),
+('Book', '2023-06-05', True, 5),
+('Computer', '2023-06-10', True, 5),
+('Book', '2023-06-20', True, 6),
+('Computer', '2023-06-25', True, 6),
+('MeetingRoom', '2023-07-01', True, 6),
+('Computer', '2023-07-10', True, 7),
+('MeetingRoom', '2023-07-15', True, 7),
+('Book', '2023-07-20', True, 8),
+('Computer', '2023-08-05', True, 9),
+('MeetingRoom', '2023-08-10', True, 9),
+('Book', '2023-08-15', True, 10),
+('MeetingRoom', '2023-08-25', True, 10);
 
--- Insertion de données supplémentaires dans la table Computer
+
+-- Insertion in the table Computer
 INSERT INTO Computer (availability) 
 VALUES 
 (true),
 (true),
+(true),
+(true),
+(true),
+(true),
 (true);
 
--- Insertion de données supplémentaires dans la table MeetingRoom
+-- Insertion in the table MeetingRoom
 INSERT INTO MeetingRoom (availability) 
 VALUES 
 (true),
 (true),
+(true),
+(true),
+(true),
+(true),
 (true);
 
--- Insertion de données supplémentaires dans la table Borrow
+-- Insertion in the table Borrow
 INSERT INTO Borrow (DateBorrowStart, idCard, idBookInLibrary) 
 VALUES 
-('2022-04-01', 4, 4),
-('2022-04-01', 4, 5),
-('2022-04-01', 4, 6),
-('2022-04-01', 4, 7),
-('2022-04-01', 4, 8);
+('2023-04-01', 1, 1),
+('2023-04-05', 1, 2),
+('2023-04-10', 4, 3),
+('2023-04-15', 4, 4),
+('2023-04-20', 4, 5),
+('2023-04-25', 7, 6),
+('2023-04-30', 7, 7),
+('2023-05-05', 7, 8),
+('2023-05-10', 10, 9),
+('2023-05-15', 12, 10),
+('2023-05-20', 12, 11),
+('2023-05-25', 12, 12),
+('2023-06-01', 12, 13),
+('2023-06-05', 12, 14),
+('2023-06-10', 14, 15),
+('2023-06-15', 10, 16),
+('2023-06-20', 14, 17),
+('2023-06-25', 10, 18),
+('2023-07-01', 10, 19),
+('2023-07-05', 10, 20);
 
--- Insertion de données supplémentaires dans la table UseRoom
+-- Insertion in the table UseRoom
 INSERT INTO UseRoom (DateBorrowStart, idCard, idMeetingRoom) 
 VALUES 
-('2022-04-25', 3, 1),
-('2022-05-10', 9, 3);
+('2023-04-25', 3, 1),
+('2023-05-10', 9, 3),
+('2023-05-10', 6, 4),
+('2023-05-10', 9, 5);
 
--- Insertion de données supplémentaires dans la table UseComputer
+-- Insertion in the table UseComputer
 INSERT INTO UseComputer (DateBorrowStart, idCard, idComputer) 
 VALUES 
-('2022-04-01', 2, 1),
-('2022-04-05', 5, 2);
+('2023-04-01', 2, 1),
+('2023-04-05', 5, 2);
 
--- Insertion de données supplémentaires dans la table Write_
+-- Insertion of corrected data in the Write_ table
 INSERT INTO Write_ (idBook, idAuthor) 
 VALUES 
 (1, 1),
@@ -555,9 +643,19 @@ VALUES
 (7, 7),
 (8, 7),
 (9, 8),
-(10, 9);
+(10, 9),
+(11, 10),
+(12, 11),
+(13, 12),
+(14, 13),
+(15, 14),
+(16, 15),
+(17, 16),
+(18, 17),
+(19, 18),
+(20, 19);
 
--- Insertion de données supplémentaires dans la table Publish
+-- Insertion of corrected data in the Publish table
 INSERT INTO Publish (idBook, idPublisher) 
 VALUES 
 (1, 1),
@@ -569,13 +667,22 @@ VALUES
 (7, 7),
 (8, 8),
 (9, 9),
-(10, 10);
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 16),
+(17, 17),
+(18, 18),
+(19, 19),
+(20, 20);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
 
 DROP USER IF EXISTS 'library_agent'@'localhost';
 -- Creating 'library_agent' user with permissions
@@ -610,15 +717,3 @@ GRANT SELECT ON Project.MeetingRoom TO 'student'@'localhost';
 GRANT UPDATE ON Project.Users TO 'student'@'localhost';
 GRANT INSERT ON Project.Users TO 'student'@'localhost';
 FLUSH PRIVILEGES;
-
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
