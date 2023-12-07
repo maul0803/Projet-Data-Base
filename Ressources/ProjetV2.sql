@@ -6,41 +6,7 @@
 -- Généré le :  jeu. 09 jan. 2020 à 12:07
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.1.9
-DROP USER IF EXISTS 'library_agent'@'localhost';
--- Creating 'library_agent' user with permissions
-CREATE USER 'library_agent'@'localhost' IDENTIFIED BY '123';
-GRANT SELECT ON Project.* TO 'library_agent'@'localhost';
-GRANT INSERT, UPDATE ON Project.Borrow TO 'library_agent'@'localhost';
-GRANT INSERT, UPDATE ON Project.UseRoom TO 'library_agent'@'localhost';
-GRANT INSERT, UPDATE ON Project.UseComputer TO 'library_agent'@'localhost';
-FLUSH PRIVILEGES;
--- Creating 'student' user with permissions
-DROP USER IF EXISTS 'student'@'localhost';
-CREATE USER 'student'@'localhost' IDENTIFIED BY '123';
-GRANT SELECT ON Project.Users TO 'student'@'localhost';
-GRANT SELECT ON Project.Card TO 'student'@'localhost';
-GRANT SELECT ON Project.Borrow TO 'student'@'localhost';
-GRANT SELECT ON Project.UseRoom TO 'student'@'localhost';
-GRANT SELECT ON Project.UseComputer TO 'student'@'localhost';
-GRANT SELECT ON Project.BookInLibrary TO 'student'@'localhost';
-GRANT SELECT ON Project.Book TO 'student'@'localhost';/*Necessary to get the titles of the books the student has borrowed*/
-GRANT SELECT ON Project.Computer TO 'student'@'localhost';
-GRANT SELECT ON Project.MeetingRoom TO 'student'@'localhost';
 
-GRANT UPDATE ON Project.Users TO 'student'@'localhost';
-FLUSH PRIVILEGES;
-
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de données :  `Project`
@@ -237,7 +203,20 @@ DELIMITER ;
 
 
 
-
+-- Trigger to check if the user can have another card or not
+DELIMITER //
+CREATE TRIGGER CheckNewCArd BEFORE INSERT ON Card
+FOR EACH ROW 
+BEGIN
+    DECLARE test_number_of_card INT;
+    
+    SELECT COUNT(idCard) INTO test_number_of_card FROM Card WHERE RessourceType=NEW.RessourceType AND idUser=NEW.idUser;
+    IF (test_number_of_card >= 1)
+    THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Your already have a card for that ressource type';
+    END IF;
+END;
+//
+DELIMITER ;
 
 
 
@@ -519,15 +498,15 @@ VALUES
 INSERT INTO Card (RessourceType, Activation_Date, is_active, idUser) 
 VALUES 
 ('Book', '2022-04-01', True, 1),
-('Computer', '2022-04-05', True, 2),
-('MeetingRoom', '2022-04-10', True, 3),
+('Computer', '2022-04-05', True, 1),
+('MeetingRoom', '2022-04-10', True, 1),
 ('Book', '2022-04-15', True, 2),
 ('Computer', '2022-04-20', True, 2),
-('MeetingRoom', '2022-04-25', True, 3),
-('Book', '2022-04-30', True, 4),
-('Computer', '2022-05-05', True, 5),
-('MeetingRoom', '2022-05-10', True, 2),
-('Book', '2022-05-15', True, 5);
+('MeetingRoom', '2022-04-25', True, 2),
+('Book', '2022-04-30', True, 3),
+('Computer', '2022-05-05', True, 3),
+('MeetingRoom', '2022-05-10', True, 3),
+('Book', '2022-05-15', True, 4);
 
 -- Insertion de données supplémentaires dans la table Computer
 INSERT INTO Computer (availability) 
@@ -556,7 +535,6 @@ VALUES
 INSERT INTO UseRoom (DateBorrowStart, idCard, idMeetingRoom) 
 VALUES 
 ('2022-04-25', 3, 1),
-('2022-04-25', 6, 2),
 ('2022-05-10', 9, 3);
 
 -- Insertion de données supplémentaires dans la table UseComputer
@@ -596,3 +574,51 @@ VALUES
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+DROP USER IF EXISTS 'library_agent'@'localhost';
+-- Creating 'library_agent' user with permissions
+CREATE USER 'library_agent'@'localhost' IDENTIFIED BY '123';
+GRANT SELECT ON Project.* TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.Users TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.Card TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.Borrow TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.UseRoom TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.UseComputer TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.BookInLibrary TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.Book TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.Computer TO 'library_agent'@'localhost';
+GRANT SELECT ON Project.MeetingRoom TO 'library_agent'@'localhost';
+GRANT INSERT, UPDATE ON Project.Borrow TO 'library_agent'@'localhost';
+GRANT INSERT, UPDATE ON Project.UseRoom TO 'library_agent'@'localhost';
+GRANT INSERT, UPDATE ON Project.UseComputer TO 'library_agent'@'localhost';
+FLUSH PRIVILEGES;
+-- Creating 'student' user with permissions
+DROP USER IF EXISTS 'student'@'localhost';
+CREATE USER 'student'@'localhost' IDENTIFIED BY '123';
+GRANT SELECT ON Project.Users TO 'student'@'localhost';
+GRANT SELECT ON Project.Card TO 'student'@'localhost';
+GRANT SELECT ON Project.Borrow TO 'student'@'localhost';
+GRANT SELECT ON Project.UseRoom TO 'student'@'localhost';#Maybe shouldn't be possible
+GRANT SELECT ON Project.UseComputer TO 'student'@'localhost';#Maybe shouldn't be possible
+GRANT SELECT ON Project.BookInLibrary TO 'student'@'localhost';
+GRANT SELECT ON Project.Book TO 'student'@'localhost';/*Necessary to get the titles of the books the student has borrowed*/
+GRANT SELECT ON Project.Computer TO 'student'@'localhost';
+GRANT SELECT ON Project.MeetingRoom TO 'student'@'localhost';
+
+GRANT UPDATE ON Project.Users TO 'student'@'localhost';
+GRANT INSERT ON Project.Users TO 'student'@'localhost';
+FLUSH PRIVILEGES;
+
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
