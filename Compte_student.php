@@ -5,7 +5,6 @@
 <!--Modifications du 16/04/2023 par Romain GUENNEAU:
   -complétion de la mise en page
 -->
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,14 +12,7 @@
     <title>Mon Compte</title>
     <link href="login.css" rel="stylesheet">
 </head>
-<?php include "header.php"; 
-$email = $_SESSION['email'];
-$idUser = $_SESSION['idUser'];
-$profile = $_SESSION['profile'];
-if ($profile!='Administrator'){
-  header("Location: login.php");
-}
-?>
+<?php include "header.php"; ?>
 <body>
 <?php
 // Require('config.php');
@@ -41,6 +33,6 @@ if (!isset($_SESSION["email"])) {
 </body>
 
 
-<?php include "admin_footer.html"; ?>
+<?php include "student_footer.html"; ?>
 </body>
 </html>

@@ -12,7 +12,12 @@ $DB_USERNAME = $_SESSION['DB_USERNAME'];
 $DB_PASSWORD = $_SESSION['DB_PASSWORD'];
 $DB_SERVER = $_SESSION['DB_SERVER'];
 $DB_NAME = $_SESSION['DB_NAME'];
-
+$email = $_SESSION['email'];
+$idUser = $_SESSION['idUser'];
+$profile = $_SESSION['profile'];
+if ($profile!='Administrator'){
+  header("Location: login.php");
+}
 $conn = mysqli_connect($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME) or die("ERROR: Unable to connect. " . mysqli_connect_error());
 $message = "";
 
@@ -146,16 +151,31 @@ while ($rowData = mysqli_fetch_assoc($result)) {
     $DateBorrowEnd = $rowData['DateBorrowEnd'];
     $idBookInLibrary = $rowData['idBookInLibrary'];
 
+    if (is_null($DateBorrowEnd)) {
+      $DateEnd = time();
+      $DateStart = strtotime($DateBorrowStart);
+      $dateDifference = $DateEnd - $DateStart;
+      $daysDifference = floor($dateDifference / (60 * 60 * 24));
+      $color = ($daysDifference <= 15) ? 'green' : 'red';
+    } else {
+        $DateEnd = strtotime($DateBorrowEnd);
+        $DateStart = strtotime($DateBorrowStart);
+        $dateDifference = $DateEnd - $DateStart;
+        $daysDifference = floor($dateDifference / (60 * 60 * 24));
+        $color = ($daysDifference <= 15) ? 'green' : 'red';
+    }
+
+
     echo "
       <tr>
         <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idBorrow'  value='$idBorrow' readonly size='5'>
-            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5'>
-            <input type='text' name='Title' value='$Title' readonly>
-            <input type='text' name='idCard' value='$idCard' readonly size='5'>
-            <input type='date' name='DateBorrowStart' value='$DateBorrowStart'>
-            <input type='date' name='DateBorrowEnd' value='$DateBorrowEnd'>
+            <input type='text' name='idBorrow'  value='$idBorrow' readonly size='5' style='color: $color;'>
+            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5' style='color: $color;'>
+            <input type='text' name='Title' value='$Title' readonly style='color: $color;'>
+            <input type='text' name='idCard' value='$idCard' readonly size='5' style='color: $color;'>
+            <input type='date' name='DateBorrowStart' value='$DateBorrowStart' style='color: $color;'>
+            <input type='date' name='DateBorrowEnd' value='$DateBorrowEnd' style='color: $color;'>
             <input type='submit' value='Modify'>
             <button type='submit' name='action' value='delete_borrow'>Delete</button>
             <button type='submit' name='action' value='return_book'>Return book</button>

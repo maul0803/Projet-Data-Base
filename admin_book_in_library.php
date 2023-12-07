@@ -12,7 +12,12 @@ $DB_USERNAME = $_SESSION['DB_USERNAME'];
 $DB_PASSWORD = $_SESSION['DB_PASSWORD'];
 $DB_SERVER = $_SESSION['DB_SERVER'];
 $DB_NAME = $_SESSION['DB_NAME'];
-
+$email = $_SESSION['email'];
+$idUser = $_SESSION['idUser'];
+$profile = $_SESSION['profile'];
+if ($profile!='Administrator'){
+  header("Location: login.php");
+}
 $conn = mysqli_connect($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME) or die("ERROR: Unable to connect. " . mysqli_connect_error());
 $message = "";
 
@@ -64,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $query = "SELECT idBookInLibrary,Title,price,date_of_purchase,availability
           FROM project.BookInLibrary
           JOIN project.Book
-          ON project.BookInLibrary.idBook=project.Book.idBook;";
+          ON project.BookInLibrary.idBook=project.Book.idBook ORDER BY idBookInLibrary ASC;";
 $result = mysqli_query($conn, $query);
 
 $titleQuery = "SELECT idBook,Title FROM project.Book";

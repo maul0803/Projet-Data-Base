@@ -12,7 +12,12 @@ $DB_USERNAME = $_SESSION['DB_USERNAME'];
 $DB_PASSWORD = $_SESSION['DB_PASSWORD'];
 $DB_SERVER = $_SESSION['DB_SERVER'];
 $DB_NAME = $_SESSION['DB_NAME'];
-
+$email = $_SESSION['email'];
+$idUser = $_SESSION['idUser'];
+$profile = $_SESSION['profile'];
+if ($profile!='Administrator'){
+  header("Location: login.php");
+}
 $conn = mysqli_connect($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME) or die("ERROR: Unable to connect. " . mysqli_connect_error());
 $message = "";
 
@@ -112,9 +117,10 @@ echo "
     <tr>
       <td>" . 'idCard' . "</td>
       <td>" . 'RessourceType' . "</td>
-      <td>" . 'is_active' . "</td>
+      <td>" . 'Activation_Date' . "</td>
       <td>" . 'is_active' . "</td>
       <td>" . 'email' . "</td>
+      <td>" . 'idUser' . "</td>
     </tr>
 ";
 

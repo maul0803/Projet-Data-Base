@@ -42,6 +42,7 @@ if (isset($_POST['email'])){
   $user = mysqli_fetch_assoc($result);
   if ($user) {
     $profile = $user['profil'];
+    $id = $user['idUser'];
   
     // Utiliser le nom d'utilisateur et le mot de passe appropriés en fonction du profil
     switch ($profile) {
@@ -68,6 +69,7 @@ if (isset($_POST['email'])){
     $_SESSION['DB_SERVER'] = 'localhost';
     $_SESSION['DB_NAME'] = 'project';
     $_SESSION['email'] = $email;
+    $_SESSION['idUser'] = $idUser;
     $_SESSION['profile'] = $profile;
     switch ($profile) {
       case 'Administrator':
@@ -82,11 +84,11 @@ if (isset($_POST['email'])){
     }
 
     if (!$conn_profile) {
-        die("ERREUR : Impossible de se connecter. " . mysqli_connect_error());
+        die("ERROR Connection not possible " . mysqli_connect_error());
     }
   }
   else{
-    $message = "Le nom d'utilisateur ou le mot de passe ou l'adresse mail est incorrect.";
+    $message = "Username or password is incorrect";
   }
 }
 
@@ -97,7 +99,7 @@ if (isset($_POST['email'])){
       <input type="text" class="come-boite-input" name="email" placeholder="Email" required />
       <input type="password" class="come-boite-input" name="password" placeholder="Mot de passe">
       <input type="submit" value="Connexion " name="submit" class="come-boite-button">
-    <p class="come-boite-register">Vous êtes nouveau ici?   <a href="register.php">S'inscrire</a></p>
+    <p class="come-boite-register">New here?<a href=" register.php">Register</a></p>
     <?php if (! empty($message)) { ?>
         <p class="come-errorMessage"><?php echo $message; ?></p>
     <?php } ?>

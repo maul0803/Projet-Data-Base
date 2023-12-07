@@ -20,28 +20,20 @@ require('config.php');
                     <img src="images/logo.jpg" alt="Logo Site" height='80' width='80'>
                 </a>
                 <div class="leftHeaderText">
-                    <a href="login.php">Accueil</a>
-                    <?php
-                    if(isset($_SESSION["email"])){
-                        echo'
-                        <a href="mesRecettes.php">Mes recettes</a>';
-                    }
-                    ?>
-                    <a href="apropos.php">À propos</a>
+                    <a href="login.php">Welcome</a>
                 </div>
             </div>
             <div class="rightHeader">
                     <?php
                      if(!isset($_SESSION["email"])){
                         // Si l'utilisateur n'est pas connecté, affiche se connecter
-                        echo '<a href="login.php">Se connecter</a>';
+                        echo '<a href="login.php">Login</a>';
                     }
                     if(isset($_SESSION["email"])){
                         // Si l'utilisateur est connecté, affiche le lien "Mon profil"
-                        echo '<a href="login.php">Mon profil</a>';
+                        echo '<a href="login.php">My profil</a>';
                     }
                     ?>
-                    <a href="rechercheTAG.php">Recherche par tags</a>
                 <a></a>
             </div>
         </div>

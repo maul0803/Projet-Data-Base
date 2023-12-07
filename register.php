@@ -34,7 +34,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
   $phone_number = stripslashes($_REQUEST['phone_number']);
   $phone_number = mysqli_real_escape_string($conn, $phone_number);
 
-  $profil = 'Student'; // Assuming a default value for the profile field
+  $profil = 'Student';
 
   // verification si l'adresse mail est deja utilise
   $query = "SELECT * FROM `users` WHERE email='$email'";
@@ -51,32 +51,35 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
     $res = mysqli_query($conn, $query);
     if($res){
     echo "<div class='come-sucess'>
-        <h3>Vous vous êtes inscrit avec succès.</h3>
-        <p class='come-sucess'>Cliquez ici pour vous <a href='login.php'>connecter</a></p>
+        <h3>You succesuly registered</h3>
+        <p class='come-sucess'>Click here to<a href='login.php'> connect</a></p>
     </div>";
+    }
+    else{
+      echo "<h3>An error occurred: " . mysqli_error($conn) . "</h3>"; // Display the MySQL error message
     }
   }
 }
 ?>
 <main>
   <form class="come-boite" action="" method="post" name="register">
-      <h1 class="come-boite-title">S'inscrire</h1>
+      <h1 class="come-boite-title">Register</h1>
       <input type="text" class="come-boite-input" name="username" placeholder="Nom d'utilisateur" required />
       <input type="text" class="come-boite-input" name="email" placeholder="Email" required />
       <input type="password" class="come-boite-input" name="password" placeholder="Mot de passe" required />
-      <!-- Additional fields -->
       <input type="text" class="come-boite-input" name="first_name" placeholder="Prénom" required />
       <input type="text" class="come-boite-input" name="last_name" placeholder="Nom de famille" required />
       <input type="text" class="come-boite-input" name="postal_address" placeholder="Adresse postale" required />
-      <input type="text" class="come-boite-input" name="phone_number" placeholder="Numéro de téléphone" required />
-      <input type="submit" name="submit" value="S'inscrire" class="come-boite-button" />
-      <p class="come-boite-register">Dejà inscrit? <a href="login.php">Connectez-vous ici</a></p>
+      <input type="number" class="come-boite-input" name="phone_number" placeholder="Numéro de téléphone" required />
+      <input type="submit" name="submit" value="Register" class="come-boite-button" />
+      <p class="come-boite-register">Already registered? <a href="login.php">Click here to connect</a></p>
       <?php if (! empty($message)) { ?>
       <p class="come-errorMessage"><?php echo $message; ?></p>
       <?php } ?>
+  </form>
 </main>
 
 <?php include "footer.html" ?>
-</form>
+
 </body>
 </html>
