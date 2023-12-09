@@ -707,13 +707,12 @@ CREATE USER 'student'@'localhost' IDENTIFIED BY '123';
 GRANT SELECT ON Project.Users TO 'student'@'localhost';
 GRANT SELECT ON Project.Card TO 'student'@'localhost';
 GRANT SELECT ON Project.Borrow TO 'student'@'localhost';
-GRANT SELECT ON Project.UseRoom TO 'student'@'localhost';#Maybe shouldn't be possible
-GRANT SELECT ON Project.UseComputer TO 'student'@'localhost';#Maybe shouldn't be possible
+GRANT SELECT ON Project.UseRoom TO 'student'@'localhost';-- Maybe shouldn't be possible
+GRANT SELECT ON Project.UseComputer TO 'student'@'localhost';-- Maybe shouldn't be possible
 GRANT SELECT ON Project.BookInLibrary TO 'student'@'localhost';
-GRANT SELECT ON Project.Book TO 'student'@'localhost';/*Necessary to get the titles of the books the student has borrowed*/
+GRANT SELECT ON Project.Book TO 'student'@'localhost';-- Necessary to get the titles of the books the student has borrowed
 GRANT SELECT ON Project.Computer TO 'student'@'localhost';
 GRANT SELECT ON Project.MeetingRoom TO 'student'@'localhost';
 
-GRANT UPDATE ON Project.Users TO 'student'@'localhost';
-GRANT INSERT ON Project.Users TO 'student'@'localhost';
+GRANT INSERT, UPDATE ON Project.Users TO 'student'@'localhost';
 FLUSH PRIVILEGES;
