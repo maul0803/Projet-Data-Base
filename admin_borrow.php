@@ -6,6 +6,7 @@
     <link href="login.css" rel="stylesheet">
 </head>
 <?php include "header.php"; ?>
+<?php include "admin_footer.html"; ?>
 <body>
 <?php
 $DB_USERNAME = $_SESSION['DB_USERNAME'];
@@ -97,8 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $error_message = mysqli_error($conn);
           $message = $resultUpdate ? "Modification successful!" : "Error modifying the borrow. Error: $error_message";
       }
-    
-    
 }
 
 $query = "SELECT idBorrow,Title,idCard,Borrow.idBookInLibrary,DateBorrowStart,DateBorrowEnd
@@ -132,7 +131,27 @@ while ($cardData = mysqli_fetch_assoc($cardResult)) {
     $cards[] = $cardData;
 }
 
-
+$registerQuery = "SELECT is_registered
+              FROM Users
+              WHERE Users.email='" . $_SESSION['email'] . "'";
+$registerResult = mysqli_query($conn, $registerQuery);
+$registerData = mysqli_fetch_assoc($registerResult);
+$is_registered=$registerData['is_registered'];
+$countQuery = "SELECT COUNT(*)
+          FROM project.Borrow
+          JOIN project.BookInLibrary
+          ON Borrow.idBookInLibrary = BookInLibrary.idBookInLibrary
+          JOIN Book
+          ON BookInLibrary.idBook = Book.idBook
+          JOIN Card
+          ON Card.idCard = Borrow.idCard
+          JOIN Users
+          ON Card.idUser = Users.idUser
+          WHERE availability=False
+          AND Users.email='" . $_SESSION['email'] . "'";
+$countResult = mysqli_query($conn, $countQuery);
+$countData = mysqli_fetch_assoc($countResult);
+$count=$countData['COUNT(*)'];
 echo "
     <tr>
       <td>" . 'idBorrow' . "</td>
@@ -221,9 +240,15 @@ echo "
     </form>
 ";
 
+if ($is_registered) {
+  echo (5 - $count) . " borrow(s) remaining";
+} else {
+  echo (1 - $count) . " borrow(s) remaining";
+}
+
+
 echo $message;
 
 ?>
-<?php include "admin_footer.html"; ?>
 </body>
 </html>

@@ -6,6 +6,7 @@
     <link href="login.css" rel="stylesheet">
 </head>
 <?php include "header.php"; ?>
+<?php include "admin_footer.html"; ?>
 <body>
 <?php
 $DB_USERNAME = $_SESSION['DB_USERNAME'];
@@ -106,5 +107,4 @@ echo "
 <?php
 echo $message; // Display the confirmation message
 ?>
-<?php include "admin_footer.html"; ?>
 </html>

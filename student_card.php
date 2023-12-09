@@ -6,6 +6,7 @@
     <link href="login.css" rel="stylesheet">
 </head>
 <?php include "header.php"; ?>
+<?php include "student_footer.html"; ?>
 <body>
 <?php
 $DB_USERNAME = $_SESSION['DB_USERNAME'];
@@ -77,6 +78,6 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 echo $message;
 
 ?>
-<?php include "student_footer.html"; ?>
+<?php include "footer.html"; ?>
 </body>
 </html>
