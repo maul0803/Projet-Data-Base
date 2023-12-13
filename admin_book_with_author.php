@@ -111,17 +111,17 @@ $publishers = [];
 while ($publisherData = mysqli_fetch_assoc($publisherResult)) {
     $publishers[] = $publisherData;
 }
-
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idBook' . "</td>
-      <td>" . 'Title' . "</td>
-      <td>" . 'idLanguageBook' . "</td>
-      <td>" . 'Number_Of_Pages' . "</td>
-      <td>" . 'Year_Of_Production' . "</td>
-      <td>" . 'Subject' . "</td>
-      <td>" . 'Rack_number' . "</td>
-      <td>" . 'Author' . "</td>
+      <th>" . 'idBook' . "</th>
+      <th>" . 'Title' . "</th>
+      <th>" . 'idLanguageBook' . "</th>
+      <th>" . 'Number_Of_Pages' . "</th>
+      <th>" . 'Year_Of_Production' . "</th>
+      <th>" . 'Subject' . "</th>
+      <th>" . 'Rack_number' . "</th>
+      <th>" . 'Author' . "</th>
     </tr>
 ";
 
@@ -139,34 +139,34 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
         <tr>
-          <td>
             <form method='POST' name='admin_book' >
-              <input type='text' name='idBook'  value='$idBook' readonly size='5'>
-              <input type='text' name='Title' value='$Title'>
-              <input type='text' name='Language' value='$Language_'>
-              <input type='number' name='Number_Of_Pages' value='$Number_Of_Pages'>
-              <input type='date' name='Year_Of_Production' value='$Year_Of_Production'>
-              <input type='text' name='Subject' value='$Subject'>
-              <input type='number' name='Rack_number' value='$rack_number'>
-              <select name='idAuthor'>
+              <td><input type='text' name='idBook'  value='$idBook' readonly size='5'></td>
+              <td><input type='text' name='Title' value='$Title'></td>
+              <td><input type='text' name='Language' value='$Language_'></td>
+              <td><input type='number' name='Number_Of_Pages' value='$Number_Of_Pages'></td>
+              <td><input type='date' name='Year_Of_Production' value='$Year_Of_Production'></td>
+              <td><input type='text' name='Subject' value='$Subject'></td>
+              <td><input type='number' name='Rack_number' value='$rack_number'></td>
+              <td><select name='idAuthor'>
                 <option value='$idAuthor'>$Author_Name</option>";
-    foreach ($authors as $author) {
-        $authorId = $author['idAuthor'];
-        $authorName = $author['Author_Name'];
-        if ($authorId != $idAuthor) {
-            echo "<option value='$authorId'>$authorName</option>";
-        }
-    }
+                foreach ($authors as $author) {
+                    $authorId = $author['idAuthor'];
+                    $authorName = $author['Author_Name'];
+                    if ($authorId != $idAuthor) {
+                        echo "<option value='$authorId'>$authorName</option>";
+                    }
+                }
 
-    echo "
-              </select>
-              <input type='submit' value='Modify'>
-              <button type='submit' name='action' value='delete_book'>Delete</button>
+              echo "
+              </select></td>
+              <td><input type='submit' value='Modify'></td>
+              <td><button type='submit' name='action' value='delete_book'>Delete</button></td>
             </form>
-          </td>
         </tr>
       ";
 }
+echo "</table>";
+
 
 echo "
     <form method='POST' name='add_book'>

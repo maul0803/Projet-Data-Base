@@ -64,11 +64,11 @@ $query = "SELECT idMeetingRoom,availability
 
 $result = mysqli_query($conn, $query);
 
-
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idMeetingRoom' . "</td>
-      <td>" . 'is_available' . "</td>
+      <th>" . 'idMeetingRoom' . "</th>
+      <th>" . 'is_available' . "</th>
     </tr>
 ";
 
@@ -78,18 +78,16 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idMeetingRoom'  value='$idMeetingRoom' readonly size='5'>
-            <input type='checkbox' name='availability' value='$availability' " . ($availability ? 'checked' : '') . ">
-            <input type='submit' value='Modify'>
-            <button type='submit' name='action' value='delete_room'>Delete</button>
+            <td><input type='text' name='idMeetingRoom'  value='$idMeetingRoom' readonly size='5'></td>
+            <td><input type='checkbox' name='availability' value='$availability' " . ($availability ? 'checked' : '') . "></td>
+            <td><input type='submit' value='Modify'></td>
+            <td><button type='submit' name='action' value='delete_room'>Delete</button></td>
           </form>
-        </td>
       </tr>
-";
-
+    ";
 }
+echo "</table>";
 
 echo "
     <form method='POST' name='add_room'>

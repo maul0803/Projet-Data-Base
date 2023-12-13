@@ -113,15 +113,15 @@ while ($userData = mysqli_fetch_assoc($userResult)) {
 }
 
 $RessourceTypes=['Book','Computer','MeetingRoom'];
-
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idCard' . "</td>
-      <td>" . 'RessourceType' . "</td>
-      <td>" . 'Activation_Date' . "</td>
-      <td>" . 'is_active' . "</td>
-      <td>" . 'email' . "</td>
-      <td>" . 'idUser' . "</td>
+      <th>" . 'idCard' . "</th>
+      <th>" . 'RessourceType' . "</th>
+      <th>" . 'Activation_Date' . "</th>
+      <th>" . 'is_active' . "</th>
+      <th>" . 'email' . "</th>
+      <th>" . 'idUser' . "</th>
     </tr>
 ";
 
@@ -136,11 +136,10 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idCard'  value='$idCard' readonly size='5'>
+            <td><input type='text' name='idCard'  value='$idCard' readonly size='5'></td>
 
-            <select name='RessourceType'>
+            <td><select name='RessourceType'>
             <option value='$RessourceType'>$RessourceType</option>
             ";
             foreach ($RessourceTypes as $Ressource_Type) {
@@ -150,21 +149,20 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
             }
             echo "
-            </select>
+            </select></td>
 
-            <input type='date' name='Activation_Date' value='$Activation_Date' readonly>
-            <input type='checkbox' name='is_active' value='$is_active' " . ($is_active ? 'checked' : '') . ">
-            <input type='text' name='idUser' value='$idUser' readonly size='5'>
-            <input type='text' name='email' value='$email' readonly>
-            <input type='submit' value='Modify'>
-            <button type='submit' name='action' value='delete_card'>Delete</button>
-            <button type='submit' name='action' value='desactivate_activate_card'>Activate/Desactivate Card</button>
+            <td><input type='date' name='Activation_Date' value='$Activation_Date' readonly></td>
+            <td><input type='checkbox' name='is_active' value='$is_active' " . ($is_active ? 'checked' : '') . "></td>
+            <td><input type='text' name='idUser' value='$idUser' readonly size='5'></td>
+            <td><input type='text' name='email' value='$email' readonly></td>
+            <td><input type='submit' value='Modify'></td>
+            <td><button type='submit' name='action' value='delete_card'>Delete</button></td>
+            <td><button type='submit' name='action' value='desactivate_activate_card'>Activate/Desactivate Card</button></td>
           </form>
-        </td>
       </tr>
-";
-
+    ";
 }
+echo "</table>";
 
 echo "
     <form method='POST' name='add_card'>

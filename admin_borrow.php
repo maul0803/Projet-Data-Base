@@ -152,14 +152,15 @@ $countQuery = "SELECT COUNT(*)
 $countResult = mysqli_query($conn, $countQuery);
 $countData = mysqli_fetch_assoc($countResult);
 $count=$countData['COUNT(*)'];
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idBorrow' . "</td>
-      <td>" . 'idBookInLibrary' . "</td>
-      <td>" . 'Title' . "</td>
-      <td>" . 'idCard' . "</td>
-      <td>" . 'DateBorrowStart' . "</td>
-      <td>" . 'DateBorrowEnd' . "</td>
+      <th>" . 'idBorrow' . "</th>
+      <th>" . 'idBookInLibrary' . "</th>
+      <th>" . 'Title' . "</th>
+      <th>" . 'idCard' . "</th>
+      <th>" . 'DateBorrowStart' . "</th>
+      <th>" . 'DateBorrowEnd' . "</th>
     </tr>
 ";
 
@@ -190,23 +191,21 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idBorrow'  value='$idBorrow' readonly size='5' style='color: $color;'>
-            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5' style='color: $color;'>
-            <input type='text' name='Title' value='$Title' readonly style='color: $color;'>
-            <input type='text' name='idCard' value='$idCard' readonly size='5' style='color: $color;'>
-            <input type='date' name='DateBorrowStart' value='$DateBorrowStart' style='color: $color;'>
-            <input type='date' name='DateBorrowEnd' value='$DateBorrowEnd' style='color: $color;'>
-            <input type='submit' value='Modify'>
-            <button type='submit' name='action' value='delete_borrow'>Delete</button>
-            <button type='submit' name='action' value='return_book'>Return book</button>
+            <td><input type='text' name='idBorrow'  value='$idBorrow' readonly size='5' style='color: $color;'></td>
+            <td><input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5' style='color: $color;'></td>
+            <td><input type='text' name='Title' value='$Title' readonly style='color: $color;'></td>
+            <td><input type='text' name='idCard' value='$idCard' readonly size='5' style='color: $color;'></td>
+            <td><input type='date' name='DateBorrowStart' value='$DateBorrowStart' style='color: $color;'></td>
+            <td><input type='date' name='DateBorrowEnd' value='$DateBorrowEnd' style='color: $color;'></td>
+            <td><input type='submit' value='Modify'></td>
+            <td><button type='submit' name='action' value='delete_borrow'>Delete</button></td>
+            <td><button type='submit' name='action' value='return_book'>Return book</button></td>
           </form>
-        </td>
       </tr>
-";
-
+    ";
 }
+echo "</table>";
 
 echo "
     <form method='POST' name='add_card'>

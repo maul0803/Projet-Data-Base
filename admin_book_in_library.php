@@ -80,13 +80,14 @@ while ($titleData = mysqli_fetch_assoc($titleResult)) {
     $titles[] = $titleData;
 }
 
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idBookInLibrary' . "</td>
-      <td>" . 'Title' . "</td>
-      <td>" . 'price' . "</td>
-      <td>" . 'date_of_purchase' . "</td>
-      <td>" . 'availability' . "</td>
+      <th>" . 'idBookInLibrary' . "</th>
+      <th>" . 'Title' . "</th>
+      <th>" . 'price' . "</th>
+      <th>" . 'date_of_purchase' . "</th>
+      <th>" . 'availability' . "</th>
     </tr>
 ";
 
@@ -99,21 +100,19 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5'>
-            <input type='text' name='Title' value='$Title' readonly>
-            <input type='number' name='price' value='$price'>
-            <input type='date' name='date_of_purchase' value='$date_of_purchase'>
-            <input type='checkbox' name='availability' value='$availability' " . ($availability ? 'checked' : '') . ">
-            <input type='submit' value='Modify'>
-            <button type='submit' name='action' value='delete_book'>Delete</button>
+            <td><input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5'></td>
+            <td><input type='text' name='Title' value='$Title' readonly></td>
+            <td><input type='number' name='price' value='$price'></td>
+            <td><input type='date' name='date_of_purchase' value='$date_of_purchase'></td>
+            <td><input type='checkbox' name='availability' value='$availability' " . ($availability ? 'checked' : '') . "></td>
+            <td><input type='submit' value='Modify'></td>
+            <td><button type='submit' name='action' value='delete_book'>Delete</button></td>
           </form>
-        </td>
       </tr>
-";
-
+    ";
 }
+echo "</table>";
 
 echo "
     <form method='POST' name='add_book'>

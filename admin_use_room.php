@@ -121,14 +121,14 @@ while ($cardData = mysqli_fetch_assoc($cardResult)) {
 }
 
 
-
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idUseRoom' . "</td>
-      <td>" . 'idMeetingRoom' . "</td>
-      <td>" . 'idCard' . "</td>
-      <td>" . 'DateBorrowStart' . "</td>
-      <td>" . 'DateBorrowEnd' . "</td>
+      <th>" . 'idUseRoom' . "</th>
+      <th>" . 'idMeetingRoom' . "</th>
+      <th>" . 'idCard' . "</th>
+      <th>" . 'DateBorrowStart' . "</th>
+      <th>" . 'DateBorrowEnd' . "</th>
     </tr>
 ";
 
@@ -141,22 +141,20 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idUseRoom'  value='$idUseRoom' readonly size='5'>
-            <input type='text' name='idMeetingRoom'  value='$idMeetingRoom' readonly size='5'>
-            <input type='number' name='idCard' value='$idCard' readonly size='5'>
-            <input type='date' name='DateBorrowStart' value='$DateBorrowStart'>
-            <input type='date' name='DateBorrowEnd' value='$DateBorrowEnd'>
-            <input type='submit' value='Modify'>
-            <button type='submit' name='action' value='delete_room'>Delete</button>
-            <button type='submit' name='action' value='return_room'>Return room</button>
+            <td><input type='text' name='idUseRoom'  value='$idUseRoom' readonly size='5'></td>
+            <td><input type='text' name='idMeetingRoom'  value='$idMeetingRoom' readonly size='5'></td>
+            <td><input type='number' name='idCard' value='$idCard' readonly size='5'></td>
+            <td><input type='date' name='DateBorrowStart' value='$DateBorrowStart'></td>
+            <td><input type='date' name='DateBorrowEnd' value='$DateBorrowEnd'></td>
+            <td><input type='submit' value='Modify'></td>
+            <td><button type='submit' name='action' value='delete_room'>Delete</button></td>
+            <td><button type='submit' name='action' value='return_room'>Return room</button></td>
           </form>
-        </td>
       </tr>
-";
-
+    ";
 }
+echo "</table>";
 
 echo "
     <form method='POST' name='add_room'>

@@ -35,10 +35,11 @@ while ($titleData = mysqli_fetch_assoc($titleResult)) {
     $titles[] = $titleData;
 }
 
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'Title' . "</td>
-      <td>" . 'availability' . "</td>
+      <th>" . 'Title' . "</th>
+      <th>" . 'availability' . "</th>
     </tr>
 ";
 
@@ -48,16 +49,14 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' readonly >
-            <input type='text' name='Title' value='$Title' readonly>
-            <input type='checkbox' name='availability' disabled value='$availability' " . ($availability ? 'checked' : '') . ">
+            <td><input type='text' name='Title' value='$Title' readonly></td>
+            <td><input type='checkbox' name='availability' disabled value='$availability' " . ($availability ? 'checked' : '') . "></td>
           </form>
-        </td>
       </tr>
-";
-
+    ";
 }
+echo "</table>";
 
 ?>
 <?php include "footer.html"; ?>

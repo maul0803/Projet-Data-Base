@@ -29,11 +29,11 @@ $query = "SELECT idComputer,availability
 
 $result = mysqli_query($conn, $query);
 
-
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idComputer' . "</td>
-      <td>" . 'is_available' . "</td>
+      <th>" . 'idComputer' . "</th>
+      <th>" . 'is_available' . "</th>
     </tr>
 ";
 
@@ -43,15 +43,15 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idComputer'  value='$idComputer' readonly size='5'>
-            <input type='checkbox' disabled name='availability' value='$availability' " . ($availability ? 'checked' : '') . ">
+            <td><input type='text' name='idComputer'  value='$idComputer' readonly size='5'></td>
+            <td><input type='checkbox' disabled name='availability' value='$availability' " . ($availability ? 'checked' : '') . "></td>
           </form>
-        </td>
       </tr>
-";
+    ";
 }
+echo "</table>";
+
 echo $message;
 
 ?>

@@ -93,19 +93,19 @@ $userQuery = "SELECT idUser,email
 
 $profils=['Administrator', 'Library Agent', 'Student'];
 
-
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idUser' . "</td>
-      <td>" . 'profil' . "</td>
-      <td>" . 'first_name' . "</td>
-      <td>" . 'last_name' . "</td>
-      <td>" . 'email' . "</td>
-      <td>" . 'postal_address' . "</td>
-      <td>" . 'phone_number' . "</td>
-      <td>" . 'username' . "</td>
-      <td>" . 'password' . "</td>
-      <td>" . 'is_registered' . "</td>
+      <th>" . 'idUser' . "</th>
+      <th>" . 'profil' . "</th>
+      <th>" . 'first_name' . "</th>
+      <th>" . 'last_name' . "</th>
+      <th>" . 'email' . "</th>
+      <th>" . 'postal_address' . "</th>
+      <th>" . 'phone_number' . "</th>
+      <th>" . 'username' . "</th>
+      <th>" . 'password' . "</th>
+      <th>" . 'is_registered' . "</th>
     </tr>
 ";
 
@@ -124,11 +124,10 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idUser'  value='$idUser' readonly size='5'>
+            <td><input type='text' name='idUser'  value='$idUser' readonly size='5'></td>
 
-            <select name='profil'>
+            <td><select name='profil'>
             <option value='$profil'>$profil</option>
             ";
             foreach ($profils as $profil_) {
@@ -138,24 +137,24 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
             }
             echo "
-            </select>
+            </select></td>
 
-            <input type='text' name='first_name' value='$first_name' size='15'>
-            <input type='text' name='last_name' value='$last_name' size='15'>
-            <input type='text' name='email' value='$email' size='15'>
-            <input type='text' name='postal_address' value='$postal_address' size='15'>
-            <input type='number' name='phone_number' value='$phone_number' size='15'>
-            <input type='text' name='username' value='$username' size='15'>
-            <input type='text' name='password' value='$password' size='15'>
-            <input type='checkbox' name='is_registered' value='$is_registered' " . ($is_registered ? 'checked' : '') . ">
-            <input type='submit' value='Modify'>
-            <button type='submit' name='action' value='delete_user'>Delete</button>
+            <td><input type='text' name='first_name' value='$first_name' size='15'></td>
+            <td><input type='text' name='last_name' value='$last_name' size='15'></td>
+            <td><input type='text' name='email' value='$email' size='15'></td>
+            <td><input type='text' name='postal_address' value='$postal_address' size='15'></td>
+            <td><input type='number' name='phone_number' value='$phone_number' size='15'></td>
+            <td><input type='text' name='username' value='$username' size='15'></td>
+            <td><input type='text' name='password' value='$password' size='15'></td>
+            <td><input type='checkbox' name='is_registered' value='$is_registered' " . ($is_registered ? 'checked' : '') . "></td>
+            <td><input type='submit' value='Modify'></td>
+            <td><button type='submit' name='action' value='delete_user'>Delete</button></td>
           </form>
         </td>
       </tr>
 ";
-
 }
+echo "</table>";
 
 echo "
     <form method='POST' name='add_user'>

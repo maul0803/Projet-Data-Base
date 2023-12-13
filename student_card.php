@@ -42,12 +42,13 @@ while ($userData = mysqli_fetch_assoc($userResult)) {
 
 $RessourceTypes=['Book','Computer','MeetingRoom'];
 
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idCard' . "</td>
-      <td>" . 'RessourceType' . "</td>
-      <td>" . 'Activation_Date' . "</td>
-      <td>" . 'is_active' . "</td>
+      <th>" . 'idCard' . "</th>
+      <th>" . 'RessourceType' . "</th>
+      <th>" . 'Activation_Date' . "</th>
+      <th>" . 'is_active' . "</th>
     </tr>
 ";
 
@@ -62,18 +63,16 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' >
-            <input type='text' name='idCard'  value='$idCard' readonly size='5'>
-            <input type='text' name='RessourceType' value='$RessourceType' readonly>
-            <input type='date' name='Activation_Date' value='$Activation_Date' readonly>
-            <input type='checkbox' disabled name='is_active' value='$is_active' " . ($is_active ? 'checked' : '') . ">
+            <td><input type='text' name='idCard'  value='$idCard' readonly size='5'></td>
+            <td><input type='text' name='RessourceType' value='$RessourceType' readonly></td>
+            <td><input type='date' name='Activation_Date' value='$Activation_Date' readonly></td>
+            <td><input type='checkbox' disabled name='is_active' value='$is_active' " . ($is_active ? 'checked' : '') . "></td>
           </form>
-        </td>
       </tr>
-";
-
+    ";
 }
+echo "</table>";
 
 echo $message;
 

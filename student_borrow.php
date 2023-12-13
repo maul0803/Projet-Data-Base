@@ -60,14 +60,15 @@ $countResult = mysqli_query($conn, $countQuery);
 $countData = mysqli_fetch_assoc($countResult);
 $count=$countData['COUNT(*)'];
 
+echo "<table>";
 echo "
     <tr>
-      <td>" . 'idBorrow' . "</td>
-      <td>" . 'idBookInLibrary' . "</td>
-      <td>" . 'Title' . "</td>
-      <td>" . 'idCard' . "</td>
-      <td>" . 'DateBorrowStart' . "</td>
-      <td>" . 'DateBorrowEnd' . "</td>
+      <th>" . 'idBorrow' . "</th>
+      <th>" . 'idBookInLibrary' . "</th>
+      <th>" . 'Title' . "</th>
+      <th>" . 'idCard' . "</th>
+      <th>" . 'DateBorrowStart' . "</th>
+      <th>" . 'DateBorrowEnd' . "</th>
     </tr>
 ";
 while ($rowData = mysqli_fetch_assoc($result)) {
@@ -94,19 +95,18 @@ while ($rowData = mysqli_fetch_assoc($result)) {
   
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_book' readonly >
-            <input type='text' name='idBorrow'  value='$idBorrow' readonly size='5' style='color: $color;'>
-            <input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5' style='color: $color;'>
-            <input type='text' name='Title' value='$Title' readonly style='color: $color;'>
-            <input type='text' name='idCard' value='$idCard' readonly size='5' style='color: $color;'>
-            <input type='date' name='DateBorrowStart' value='$DateBorrowStart' readonly style='color: $color;'>
-            <input type='date' name='DateBorrowEnd' value='$DateBorrowEnd' readonly style='color: $color;'>
+            <td><input type='text' name='idBorrow'  value='$idBorrow' readonly size='5' style='color: $color;'></td>
+            <td><input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5' style='color: $color;'></td>
+            <td><input type='text' name='Title' value='$Title' readonly style='color: $color;'></td>
+            <td><input type='text' name='idCard' value='$idCard' readonly size='5' style='color: $color;'></td>
+            <td><input type='date' name='DateBorrowStart' value='$DateBorrowStart' readonly style='color: $color;'></td>
+            <td><input type='date' name='DateBorrowEnd' value='$DateBorrowEnd' readonly style='color: $color;'></td>
           </form>
-        </td>
       </tr>
-";
+    ";
 }
+echo "</table>";
 
 if ($is_registered) {
   echo (5 - $count) . " borrow(s) remaining";

@@ -70,10 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Display the table
 $query = "SELECT idPublisher, Publisher_Name FROM project.Publisher ORDER BY idPublisher ASC";
 $result = mysqli_query($conn, $query);
+echo "<table>";
 echo "
     <tr>
-      <td>".'idPublisher'."</td>
-      <td>".'Publisher_Name'."</td>
+      <th>".'idPublisher'."</th>
+      <th>".'Publisher_Name'."</th>
     </tr>
 ";
 
@@ -82,17 +83,16 @@ while ($rowData = mysqli_fetch_assoc($result)) {
     $Publisher_Name = $rowData['Publisher_Name'];
     echo "
       <tr>
-        <td>
           <form method='POST' name='admin_publisher' >
-            <input type='text' name='idPublisher'  value='$idPublisher' readonly size='5'>
-            <input type='text' name='Publisher_Name' value='$Publisher_Name'>
-            <input type='submit' value='Modify'>
-            <button type='submit' name='action' value='delete'>Delete</button>
+            <td><input type='text' name='idPublisher'  value='$idPublisher' readonly size='5'></td>
+            <td><input type='text' name='Publisher_Name' value='$Publisher_Name'></td>
+            <td><input type='submit' value='Modify'></td>
+            <td><button type='submit' name='action' value='delete'>Delete</button></td>
           </form>
-        </td>
       </tr>
     ";
 }
+echo "</table>";
 
 // Form to add an publisher
 echo "

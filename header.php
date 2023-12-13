@@ -17,7 +17,7 @@ require('config.php');
         <div class="headerNav">
             <div class="leftHeaderLink">
                 <a href="login.php">
-                    <img src="images/logo.jpg" alt="Logo Site" height='80' width='80'>
+                    <img src="images/logolibrary.jpg" alt="Logo Site" height='100' width='100'>
                 </a>
                 <div class="leftHeaderText">
                     <a href="login.php">Welcome</a>
