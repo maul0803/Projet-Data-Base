@@ -1,7 +1,7 @@
 <?php
 // Informations d'identification
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'student');
+define('DB_USERNAME', 'login');
 define('DB_PASSWORD', '123');
 define('DB_NAME', 'project');
  
