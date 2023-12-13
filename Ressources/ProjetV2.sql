@@ -505,7 +505,10 @@ VALUES
 ('Student', 'Bob', 'Smith', 'bob.s@example.com', '789 Student St', '987654321', 'bobs', 'studentpass', true),
 ('Student', 'Eva', 'Davis', 'eva.d@example.com', '123 Student St', '456987123', 'evad', 'studentpass', true),
 ('Student', 'David', 'Wilson', 'david.w@example.com', '456 Student St', '789456123', 'davidw', 'studentpass', true),
-('Student', 'Sophie', 'Brown', 'sophie.b@example.com', '789 Student St', '123456789', 'sophieb', 'studentpass', true);
+('Student', 'Sophie', 'Brown', 'sophie.b@example.com', '789 Student St', '123456789', 'sophieb', 'studentpass', true),
+('Student', 'Ratatouille', 'Raclette', 'sophie1.b@example.com', '789 Student St', '142355845', 'Sport', 'studentpass', true),
+('Student', 'Fail', 'Fromage', 'sophie2.b@example.com', '789 Student St', '155789954', 'Eat', 'studentpass', true),
+('Student', 'Faim', 'Viande', 'sophie3.b@example.com', '789 Student St', '147895544', 'Manger', 'studentpass', true);
 
 -- Insertion in the table table BookInLibrary
 -- Insertion of 30 additional books in the library
