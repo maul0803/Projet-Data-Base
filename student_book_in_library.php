@@ -24,8 +24,10 @@ $message = "";
 
 $query = "SELECT idBookInLibrary,Title,price,date_of_purchase,availability
           FROM project.BookInLibrary
-          JOIN project.Book
-          ON project.BookInLibrary.idBook=project.Book.idBook ORDER BY idBookInLibrary ASC;";
+          JOIN project.Book 
+          ON project.BookInLibrary.idBook=project.Book.idBook 
+          WHERE BookInLibrary.availability=True
+          ORDER BY idBookInLibrary ASC;";
 $result = mysqli_query($conn, $query);
 
 $titleQuery = "SELECT idBook,Title FROM project.Book";
