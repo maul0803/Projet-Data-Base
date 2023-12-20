@@ -85,8 +85,6 @@ echo "
     <tr>
       <th>" . 'idBookInLibrary' . "</th>
       <th>" . 'Title' . "</th>
-      <th>" . 'price' . "</th>
-      <th>" . 'date_of_purchase' . "</th>
       <th>" . 'availability' . "</th>
     </tr>
 ";
@@ -103,8 +101,6 @@ while ($rowData = mysqli_fetch_assoc($result)) {
           <form method='POST' name='admin_book' >
             <td><input type='text' name='idBookInLibrary'  value='$idBookInLibrary' readonly size='5'></td>
             <td><input type='text' name='Title' value='$Title' readonly></td>
-            <td><input type='number' name='price' value='$price'></td>
-            <td><input type='date' name='date_of_purchase' value='$date_of_purchase'></td>
             <td><input type='checkbox' name='availability' disabled value='$availability' " . ($availability ? 'checked' : '') . "></td>
           </form>
       </tr>
