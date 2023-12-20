@@ -207,6 +207,49 @@ while ($rowData = mysqli_fetch_assoc($result)) {
 }
 echo "<table><br>";
 
+
+
+echo "
+    <form method='POST' name='add_card' style='margin-left: 20px'>
+
+        <select name='idBookInLibrary'>;
+
+        ";
+        foreach ($titles as $title) {
+          $idBookInLibrary = $title['idBookInLibrary'];
+          $bookTitle = $title['Title'];
+          echo "<option value='$idBookInLibrary'>$bookTitle</option>";
+      }
+        echo "
+        </select>
+
+        <select name='idCard'>;
+        ";
+        foreach ($cards as $card) {
+          $cardId = $card['idCard'];
+          echo "<option value='$cardId'>$cardId</option>";
+      }
+        echo "
+        </select>
+
+
+
+        <input type='date' name='DateBorrowStart' placeholder='Date borrow start'>
+
+        <input type='hidden' name='action' value='add_card'>
+        <input type='submit' value='Borrow Book'>
+    </form>
+";
+echo "<div style='margin-left: 20px'>";
+if ($is_registered) {
+  echo (5 - $count) . " borrow(s) remaining";
+} else {
+  echo (1 - $count) . " borrow(s) remaining";
+}
+echo "<br>";
+echo $message;
+echo "</div>";
+
 ?>
 <div style='bottom: 0; width: 100%;'>
 <?php include "footer.html"; ?>
