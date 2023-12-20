@@ -29,7 +29,7 @@ $query = "SELECT idComputer,availability
 
 $result = mysqli_query($conn, $query);
 
-echo "<table>";
+echo "<table  style='margin-left: 40%; margin-top: -8%;'>";
 echo "
     <tr>
       <th>" . 'idComputer' . "</th>
@@ -50,11 +50,15 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
+echo "<div style='margin-left: 40%;'>";
 echo $message;
-
+echo "</div>";
 ?>
+
+<div style='bottom: 0; position: fixed; width: 99%;'>
 <?php include "footer.html"; ?>
+</div>
 </body>
 </html>

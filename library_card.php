@@ -113,15 +113,15 @@ while ($userData = mysqli_fetch_assoc($userResult)) {
 }
 
 $RessourceTypes=['Book','Computer','MeetingRoom'];
-echo "<table>";
+echo "<table  style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idCard' . "</th>
       <th>" . 'RessourceType' . "</th>
       <th>" . 'Activation_Date' . "</th>
       <th>" . 'is_active' . "</th>
-      <th>" . 'email' . "</th>
       <th>" . 'idUser' . "</th>
+      <th>" . 'email' . "</th>
     </tr>
 ";
 
@@ -138,58 +138,20 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
           <form method='POST' name='admin_book' >
             <td><input type='text' name='idCard'  value='$idCard' readonly size='5'></td>
-
-            <td><select name='RessourceType'>
-            <option value='$RessourceType'>$RessourceType</option>
-            ";
-            foreach ($RessourceTypes as $Ressource_Type) {
-              if ($Ressource_Type!=$RessourceType){
-                echo "<option value='$Ressource_Type'>$Ressource_Type</option>";
-              }
-
-            }
-            echo "
-            </select></td>
-
+            <td><input type='text' name='RessourceType'  value='$RessourceType' readonly></td>
             <td><input type='date' name='Activation_Date' value='$Activation_Date' readonly></td>
-            <td><input type='checkbox' name='is_active' value='$is_active' " . ($is_active ? 'checked' : '') . "></td>
+            <td><input type='checkbox' name='is_active' disabled value='$is_active' " . ($is_active ? 'checked' : '') . "></td>
             <td><input type='text' name='idUser' value='$idUser' readonly size='5'></td>
             <td><input type='text' name='email' value='$email' readonly></td>
-            <td><input type='submit' value='Modify'></td>
-            <td><button type='submit' name='action' value='delete_card'>Delete</button></td>
-            <td><button type='submit' name='action' value='desactivate_activate_card'>Activate/Desactivate Card</button></td>
           </form>
       </tr>
     ";
 }
-echo "<table>";
-
-echo "
-    <form method='POST' name='add_card'>
-
-        <select name='RessourceType'>
-        <option value='Book'>Book</option>
-        <option value='Computer'>Computer</option>
-        <option value='MeetingRoom'>MeetingRoom</option>
-        </select>
-
-        <select name='idUser'>;
-        ";
-        foreach ($users as $user) {
-          $idUser = $user['idUser'];
-          $email = $user['email'];
-          echo "<option value='$idUser'>$email</option>";
-        }
-        echo "
-        </select>
-
-        <input type='hidden' name='action' value='add_card'>
-        <input type='submit' value='Add Card'>
-    </form>
-";
-
-echo $message;
+echo "<table><br>";
 
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

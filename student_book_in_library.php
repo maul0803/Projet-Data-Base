@@ -37,7 +37,7 @@ while ($titleData = mysqli_fetch_assoc($titleResult)) {
     $titles[] = $titleData;
 }
 
-echo "<table>";
+echo "<table style='margin-left: 45%; margin-top: -8%;'>";
 echo "
     <tr>
       <th>" . 'Title' . "</th>
@@ -58,9 +58,11 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
 ?>
+<div style='bottom: 0; position: fixed; width: 99%;'>
 <?php include "footer.html"; ?>
+</div>
 </body>
 </html>

@@ -99,7 +99,7 @@ if (isset($_POST['email'])){
       <input type="text" class="come-boite-input" name="email" placeholder="Email" required />
       <input type="password" class="come-boite-input" name="password" placeholder="Mot de passe">
       <input type="submit" value="Connection " name="submit" class="come-boite-button">
-    <p class="come-boite-register">New here?<a href=" register.php">Register</a></p>
+    <p class="come-boite-register">New here? <a href=" register.php">Register</a></p>
     <?php if (! empty($message)) { ?>
         <p class="come-errorMessage"><?php echo $message; ?></p>
     <?php } ?>

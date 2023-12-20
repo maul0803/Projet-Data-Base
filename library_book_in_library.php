@@ -80,7 +80,7 @@ while ($titleData = mysqli_fetch_assoc($titleResult)) {
     $titles[] = $titleData;
 }
 
-echo "<table>";
+echo "<table style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idBookInLibrary' . "</th>
@@ -105,39 +105,16 @@ while ($rowData = mysqli_fetch_assoc($result)) {
             <td><input type='text' name='Title' value='$Title' readonly></td>
             <td><input type='number' name='price' value='$price'></td>
             <td><input type='date' name='date_of_purchase' value='$date_of_purchase'></td>
-            <td><input type='checkbox' name='availability' value='$availability' " . ($availability ? 'checked' : '') . "></td>
-            <td><input type='submit' value='Modify'></td>
-            <td><button type='submit' name='action' value='delete_book'>Delete</button></td>
+            <td><input type='checkbox' name='availability' disabled value='$availability' " . ($availability ? 'checked' : '') . "></td>
           </form>
       </tr>
     ";
 }
-echo "</table>";
-
-echo "
-    <form method='POST' name='add_book'>
-      
-        <select name='idBook'>";
-
-        foreach ($titles as $title) {
-          $bookId = $title['idBook'];
-          $bookTitle = $title['Title'];
-          echo "<option value='$bookId'>$bookTitle</option>";
-      }
-      
-        echo "
-        </select>
-        <input type='number' name='price' placeholder='Price'>
-        <input type='date' name='date_of_purchase' placeholder='Date of purchase'>
-
-
-        <input type='hidden' name='action' value='add_book'>
-        <input type='submit' value='Add Book'>
-    </form>
-";
-
-echo $message;
+echo "</table><br>";
 
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

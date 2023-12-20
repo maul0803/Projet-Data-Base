@@ -113,15 +113,15 @@ while ($userData = mysqli_fetch_assoc($userResult)) {
 }
 
 $RessourceTypes=['Book','Computer','MeetingRoom'];
-echo "<table>";
+echo "<table style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idCard' . "</th>
       <th>" . 'RessourceType' . "</th>
       <th>" . 'Activation_Date' . "</th>
       <th>" . 'is_active' . "</th>
-      <th>" . 'email' . "</th>
       <th>" . 'idUser' . "</th>
+      <th>" . 'email' . "</th>
     </tr>
 ";
 
@@ -162,10 +162,10 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
 echo "
-    <form method='POST' name='add_card'>
+    <form method='POST' name='add_card' style='margin-left: 20px'>
 
         <select name='RessourceType'>
         <option value='Book'>Book</option>
@@ -185,11 +185,16 @@ echo "
 
         <input type='hidden' name='action' value='add_card'>
         <input type='submit' value='Add Card'>
-    </form>
+    </form><br>
 ";
 
+echo "<div style='margin-left: 20px'>";
 echo $message;
+echo "</div>";
 
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

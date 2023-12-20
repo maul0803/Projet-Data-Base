@@ -64,7 +64,7 @@ $query = "SELECT idComputer,availability
 
 $result = mysqli_query($conn, $query);
 
-echo "<table>";
+echo "<table style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idComputer' . "</th>
@@ -80,24 +80,16 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
           <form method='POST' name='admin_book' >
             <td><input type='text' name='idComputer'  value='$idComputer' readonly size='5'></td>
-            <td><input type='checkbox' name='availability' value='$availability' " . ($availability ? 'checked' : '') . "></td>
-            <td><input type='submit' value='Modify'></td>
-            <td><button type='submit' name='action' value='delete_room'>Delete</button></td>
+            <td><input type='checkbox' name='availability' disabled value='$availability' " . ($availability ? 'checked' : '') . "></td>
           </form>
       </tr>
     ";
 }
-echo "</table>";
-
-echo "
-    <form method='POST' name='add_room'>
-        <input type='hidden' name='action' value='add_room'>
-        <input type='submit' value='Add Computer'>
-    </form>
-";
-
-echo $message;
+echo "</table><br>";
 
 ?>
+<div style='bottom: 0; width: 100%; margin-top: 7%'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

@@ -32,15 +32,16 @@ if (!isset($_SESSION["email"])) {
 }
 ?>
 
-<div class="come-success">
+<div style="text-align: left;">
+<?php include "admin_footer.html"; ?>
+</div>
+
+<div class="come-success" style="text-align: center; margin-top: -300px;">
     <h1>Welcome <?php echo $_SESSION['email']; ?>!</h1>
     <h1>Your statut is <?php echo $_SESSION['profile']; ?>!</h1>
     <p><font color="red">You are connected.</font></p>
-    <a href="logout.php"><font color="red">Logout</font></a>
+    <a href="logout.php" style="font-size: 26px;"><font color="red">Logout</font></a>
 </div>
 </body>
 
-
-<?php include "admin_footer.html"; ?>
-</body>
 </html>

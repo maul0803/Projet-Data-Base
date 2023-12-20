@@ -62,7 +62,7 @@ $userQuery = "SELECT idUser,email
 
 $profils=['Administrator', 'Library Agent', 'Student'];
 
-echo "<table>";
+echo "<table style='margin-left: 15%; margin-top: -8%;'>";
 echo "
     <tr>
       <th>" . 'idUser' . "</th>
@@ -109,11 +109,15 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
+echo "<div style='margin-left: 15%;'>";
 echo $message;
+echo "</div>";
 
 ?>
-</body>
+<div style='bottom: 0; position: fixed; width: 99%;'>
 <?php include "footer.html"; ?>
+</div>
+</body>
 </html>

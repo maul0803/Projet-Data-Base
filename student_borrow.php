@@ -60,7 +60,7 @@ $countResult = mysqli_query($conn, $countQuery);
 $countData = mysqli_fetch_assoc($countResult);
 $count=$countData['COUNT(*)'];
 
-echo "<table>";
+echo "<table  style='margin-left: 30%; margin-top: -8%;'>";
 echo "
     <tr>
       <th>" . 'idBorrow' . "</th>
@@ -106,8 +106,9 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
+echo "<div style='margin-left: 30%;'>";
 if ($is_registered) {
   echo (5 - $count) . " borrow(s) remaining";
 } else {
@@ -115,8 +116,11 @@ if ($is_registered) {
 }
 
 echo $message;
+echo "</div>";
 
 ?>
+<div style='bottom: 0; position: fixed; width: 99%;'>
 <?php include "footer.html"; ?>
+</div>
 </body>
 </html>

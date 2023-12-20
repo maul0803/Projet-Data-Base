@@ -112,7 +112,7 @@ while ($publisherData = mysqli_fetch_assoc($publisherResult)) {
     $publishers[] = $publisherData;
 }
 
-echo "<table>";
+echo "<table  style='margin-left: 15%; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idBook' . "</th>
@@ -142,68 +142,22 @@ while ($rowData = mysqli_fetch_assoc($result)) {
         <tr>
             <form method='POST' name='admin_book' >
               <td><input type='text' name='idBook'  value='$idBook' readonly size='5'></td>
-              <td><input type='text' name='Title' value='$Title'></td>
-              <td><input type='text' name='Language' value='$Language_'></td>
-              <td><input type='number' name='Number_Of_Pages' value='$Number_Of_Pages'></td>
-              <td><input type='date' name='Year_Of_Production' value='$Year_Of_Production'></td>
-              <td><input type='text' name='Subject' value='$Subject'></td>
-              <td><input type='number' name='Rack_number' value='$rack_number'></td>
-              <td><select name='idAuthor'>
-                <option value='$idAuthor'>$Author_Name</option>";
-                foreach ($authors as $author) {
-                    $authorId = $author['idAuthor'];
-                    $authorName = $author['Author_Name'];
-                    if ($authorId != $idAuthor) {
-                        echo "<option value='$authorId'>$authorName</option>";
-                    }
-                }
-
-              echo "
-              </select></td>
-              <td><input type='submit' value='Modify'></td>
-              <td><button type='submit' name='action' value='delete_book'>Delete</button></td>
+              <td><input type='text' name='Title' value='$Title' readonly></td>
+              <td><input type='text' name='Language' value='$Language_' readonly></td>
+              <td><input type='number' name='Number_Of_Pages' value='$Number_Of_Pages' readonly></td>
+              <td><input type='date' name='Year_Of_Production' value='$Year_Of_Production' readonly></td>
+              <td><input type='text' name='Subject' value='$Subject' readonly></td>
+              <td><input type='number' name='Rack_number' value='$rack_number' readonly></td>
+              <td><input type='text' name='idAuthor' value='$Author_Name' readonly></td>
             </form>
         </tr>
       ";
 }
-echo "</table>";
-
-
-echo "
-    <form method='POST' name='add_book'>
-        <input type='text' name='newTitle' placeholder='Title'>
-        <input type='text' name='newLanguage' placeholder='Language'>
-        <input type='number' name='newPages' placeholder='Number Of Pages'>
-        <input type='date' name='newYear' placeholder='Year Of Production'>
-        <input type='text' name='newSubject' placeholder='Subject'>
-        <input type='number' name='newRack' placeholder='Rack Number'>
-        <select name='idAuthor'>";
-
-        foreach ($authors as $author) {
-        $authorId = $author['idAuthor'];
-        $authorName = $author['Author_Name'];
-        echo "<option value='$authorId'>$authorName</option>";
-        }
-
-        echo "
-      </select>
-      <select name='idPublisher'>";
-
-      foreach ($publishers as $publisher) {
-      $publisherId = $publisher['idPublisher'];
-      $publisherName = $publisher['Publisher_Name'];
-      echo "<option value='$publisherId'>$publisherName</option>";
-      }
-
-      echo "
-    </select>
-        <input type='hidden' name='action' value='add_book'>
-        <input type='submit' value='Add Publisher'>
-    </form>
-";
-
-echo $message;
+echo "</table><br>";
 
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

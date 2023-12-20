@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Display the table
 $query = "SELECT idPublisher, Publisher_Name FROM project.Publisher ORDER BY idPublisher ASC";
 $result = mysqli_query($conn, $query);
-echo "<table>";
+echo "<table style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>".'idPublisher'."</th>
@@ -85,26 +85,16 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
           <form method='POST' name='admin_publisher' >
             <td><input type='text' name='idPublisher'  value='$idPublisher' readonly size='5'></td>
-            <td><input type='text' name='Publisher_Name' value='$Publisher_Name'></td>
-            <td><input type='submit' value='Modify'></td>
-            <td><button type='submit' name='action' value='delete'>Delete</button></td>
+            <td><input type='text' name='Publisher_Name' value='$Publisher_Name' readonly></td>
           </form>
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
-// Form to add an publisher
-echo "
-    <form method='POST' name='add'>
-        <input type='text' name='newPubisherName' placeholder='Publisher Name'>
-        <input type='hidden' name='action' value='add'>
-        <input type='submit' value='Add Publisher'>
-    </form>
-";
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
-<?php
-echo $message; // Display the confirmation message
-?>
 </html>

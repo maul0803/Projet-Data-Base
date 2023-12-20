@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Display the table
 $query = "SELECT idAuthor, Author_Name FROM project.Author ORDER BY idAuthor ASC;";
 $result = mysqli_query($conn, $query);
-echo "<table>";
+echo "<table style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>".'idAuthor'."</th>
@@ -92,19 +92,24 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
 // Form to add an author
 echo "
-    <form method='POST' name='add'>
+    <form method='POST' name='add' style='margin-left: 20px'>
         <input type='text' name='newAuthorName' placeholder='Author Name'>
         <input type='hidden' name='action' value='add'>
         <input type='submit' value='Add Author'>
-    </form>
+    </form><br>
 ";
 ?>
 </body>
 <?php
-echo $message; // Display the confirmation message
+echo "<div style='margin-left: 20px'>";
+echo $message;
+echo "</div>";
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </html>

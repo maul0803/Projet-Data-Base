@@ -152,7 +152,7 @@ $countQuery = "SELECT COUNT(*)
 $countResult = mysqli_query($conn, $countQuery);
 $countData = mysqli_fetch_assoc($countResult);
 $count=$countData['COUNT(*)'];
-echo "<table>";
+echo "<table  style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idBorrow' . "</th>
@@ -205,49 +205,11 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "<table>";
-
-echo "
-    <form method='POST' name='add_card'>
-
-        <select name='idBookInLibrary'>;
-
-        ";
-        foreach ($titles as $title) {
-          $idBookInLibrary = $title['idBookInLibrary'];
-          $bookTitle = $title['Title'];
-          echo "<option value='$idBookInLibrary'>$bookTitle</option>";
-      }
-        echo "
-        </select>
-
-        <select name='idCard'>;
-        ";
-        foreach ($cards as $card) {
-          $cardId = $card['idCard'];
-          echo "<option value='$cardId'>$cardId</option>";
-      }
-        echo "
-        </select>
-
-
-
-        <input type='date' name='DateBorrowStart' placeholder='Date borrow start'>
-
-        <input type='hidden' name='action' value='add_card'>
-        <input type='submit' value='Borrow Book'>
-    </form>
-";
-
-if ($is_registered) {
-  echo (5 - $count) . " borrow(s) remaining";
-} else {
-  echo (1 - $count) . " borrow(s) remaining";
-}
-
-
-echo $message;
+echo "<table><br>";
 
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

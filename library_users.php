@@ -93,7 +93,7 @@ $userQuery = "SELECT idUser,email
 
 $profils=['Administrator', 'Library Agent', 'Student'];
 
-echo "<table>";
+echo "<table style='margin-left: 15%; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idUser' . "</th>
@@ -126,63 +126,25 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       <tr>
           <form method='POST' name='admin_book' >
             <td><input type='text' name='idUser'  value='$idUser' readonly size='5'></td>
-
-            <td><select name='profil'>
-            <option value='$profil'>$profil</option>
-            ";
-            foreach ($profils as $profil_) {
-              if ($profil_!=$profil){
-                echo "<option value='$profil_'>$profil_</option>";
-              }
-
-            }
-            echo "
-            </select></td>
-
-            <td><input type='text' name='first_name' value='$first_name' size='15'></td>
-            <td><input type='text' name='last_name' value='$last_name' size='15'></td>
-            <td><input type='text' name='email' value='$email' size='15'></td>
-            <td><input type='text' name='postal_address' value='$postal_address' size='15'></td>
-            <td><input type='number' name='phone_number' value='$phone_number' size='15'></td>
-            <td><input type='text' name='username' value='$username' size='15'></td>
-            <td><input type='text' name='password' value='$password' size='15'></td>
-            <td><input type='checkbox' name='is_registered' value='$is_registered' " . ($is_registered ? 'checked' : '') . "></td>
-            <td><input type='submit' value='Modify'></td>
-            <td><button type='submit' name='action' value='delete_user'>Delete</button></td>
+            <td><input type='text' name='profil'  value='$profil' readonly></td>
+            <td><input type='text' name='first_name' value='$first_name' readonly size='15'></td>
+            <td><input type='text' name='last_name' value='$last_name' readonly size='15'></td>
+            <td><input type='text' name='email' value='$email' readonly size='15'></td>
+            <td><input type='text' name='postal_address' value='$postal_address' readonly size='15'></td>
+            <td><input type='number' name='phone_number' value='$phone_number' readonly size='15'></td>
+            <td><input type='text' name='username' value='$username' readonly size='15'></td>
+            <td><input type='text' name='password' value='$password' readonly size='15'></td>
+            <td><input type='checkbox' name='is_registered' disabled value='$is_registered' " . ($is_registered ? 'checked' : '') . "></td>
           </form>
         </td>
       </tr>
 ";
 }
-echo "</table>";
-
-echo "
-    <form method='POST' name='add_user'>
-
-        <select name='profil'>
-        ";
-        foreach ($profils as $profil_) {
-          echo "<option value='$profil_'>$profil_</option>";
-        }
-        echo "
-        </select>
-
-        <input type='text' name='first_name' placeholder='First Name' size='15'>
-        <input type='text' name='last_name' placeholder='Last Name' size='15'>
-        <input type='text' name='email' placeholder='email' size='15'>
-        <input type='text' name='postal_address' placeholder='postal address' size='15'>
-        <input type='number' name='phone_number' placeholder='phone number' size='15'>
-        <input type='text' name='username' placeholder='username'>
-        <input type='text' name='password' placeholder='password' size='15'>
-        <input type='checkbox' name='is_registered' value=0>
-
-        <input type='hidden' name='action' value='add_user'>
-        <input type='submit' value='Add User'>
-    </form>
-";
-
-echo $message;
+echo "</table><br>";
 
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

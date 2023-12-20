@@ -7,6 +7,7 @@
 </head>
 <?php include "header.php"; ?>
 <?php include "admin_footer.html"; ?>
+
 <body>
 <?php
 $DB_USERNAME = $_SESSION['DB_USERNAME'];
@@ -111,7 +112,7 @@ $publishers = [];
 while ($publisherData = mysqli_fetch_assoc($publisherResult)) {
     $publishers[] = $publisherData;
 }
-echo "<table>";
+echo "<table style='margin-left: 15%; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idBook' . "</th>
@@ -165,11 +166,11 @@ while ($rowData = mysqli_fetch_assoc($result)) {
         </tr>
       ";
 }
-echo "</table>";
+echo "</table><br>";
 
 
 echo "
-    <form method='POST' name='add_book'>
+    <form method='POST' name='add_book' style='margin-left: 20px'>
         <input type='text' name='newTitle' placeholder='Title'>
         <input type='text' name='newLanguage' placeholder='Language'>
         <input type='number' name='newPages' placeholder='Number Of Pages'>
@@ -198,11 +199,15 @@ echo "
     </select>
         <input type='hidden' name='action' value='add_book'>
         <input type='submit' value='Add Publisher'>
-    </form>
+    </form><br>
 ";
 
+echo "<div style='margin-left: 20px'>";
 echo $message;
-
+echo "</div>";
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

@@ -121,7 +121,7 @@ while ($cardData = mysqli_fetch_assoc($cardResult)) {
 }
 
 
-echo "<table>";
+echo "<table  style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idUseComputer' . "</th>
@@ -154,10 +154,10 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
 echo "
-    <form method='POST' name='add_computer'>
+    <form method='POST' name='add_computer' style='margin-left: 595px'>
 
         <select name='idComputer'>;
 
@@ -184,11 +184,16 @@ echo "
 
         <input type='hidden' name='action' value='add_computer'>
         <input type='submit' value='Book a computer'>
-    </form>
+    </form><br>
 ";
 
+echo "<div style='margin-left: 42%'>";
 echo $message;
+echo "</div>";
 
 ?>
+<div style='bottom: 0; width: 100%; margin-top: 12%'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

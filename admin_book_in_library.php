@@ -80,7 +80,7 @@ while ($titleData = mysqli_fetch_assoc($titleResult)) {
     $titles[] = $titleData;
 }
 
-echo "<table>";
+echo "<table style='margin: auto; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idBookInLibrary' . "</th>
@@ -112,10 +112,10 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
 echo "
-    <form method='POST' name='add_book'>
+    <form method='POST' name='add_book' style='margin-left: 20px'>
       
         <select name='idBook'>";
 
@@ -133,11 +133,16 @@ echo "
 
         <input type='hidden' name='action' value='add_book'>
         <input type='submit' value='Add Book'>
-    </form>
+    </form><br>
 ";
 
+echo "<div style='margin-left: 20px'>";
 echo $message;
+echo "</div>";
 
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>

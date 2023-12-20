@@ -42,7 +42,7 @@ while ($userData = mysqli_fetch_assoc($userResult)) {
 
 $RessourceTypes=['Book','Computer','MeetingRoom'];
 
-echo "<table>";
+echo "<table style='margin-left: 40%; margin-top: -8%;'>";
 echo "
     <tr>
       <th>" . 'idCard' . "</th>
@@ -72,11 +72,14 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
     ";
 }
-echo "</table>";
+echo "</table><br>";
 
+echo "<div style='margin-left: 40%;'>";
 echo $message;
-
+echo "</div>";
 ?>
+<div style='bottom: 0; position: fixed; width: 99%;'>
 <?php include "footer.html"; ?>
+</div>
 </body>
 </html>

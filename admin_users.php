@@ -93,7 +93,7 @@ $userQuery = "SELECT idUser,email
 
 $profils=['Administrator', 'Library Agent', 'Student'];
 
-echo "<table>";
+echo "<table style='margin-left: 15%; margin-top: -300px;'>";
 echo "
     <tr>
       <th>" . 'idUser' . "</th>
@@ -154,10 +154,10 @@ while ($rowData = mysqli_fetch_assoc($result)) {
       </tr>
 ";
 }
-echo "</table>";
+echo "</table><br>";
 
 echo "
-    <form method='POST' name='add_user'>
+    <form method='POST' name='add_user' style='margin-left: 20px'>
 
         <select name='profil'>
         ";
@@ -178,11 +178,16 @@ echo "
 
         <input type='hidden' name='action' value='add_user'>
         <input type='submit' value='Add User'>
-    </form>
+    </form><br>
 ";
 
+echo "<div style='margin-left: 20px'>";
 echo $message;
+echo "</div>";
 
 ?>
+<div style='bottom: 0; width: 100%;'>
+<?php include "footer.html"; ?>
+</div>
 </body>
 </html>
